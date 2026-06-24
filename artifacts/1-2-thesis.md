@@ -52,3 +52,10 @@ AI re-bundling + buyer consolidation + AI-collapsed build cost make a compound p
 **Recommendation**
 
 **Proceed to Phase 3 — Concept.** The gap is specific and defensible, the two-pronged entry credibly addresses the cold-start, and AI-native build economics make solo-stage validation realistic. This Phase 2 gate is a small step (concept the product, not commit to building it). The harder questions — team/co-founder + raise, and a genuine net-positive-impact answer — belong to the Track 1 terminal (Stage 1→2) gate, where the adversarial-review bar applies.
+
+---
+
+**Phase 3 should explore** *(carry-forward notes — per thesis phase-boundary discipline)*
+
+- **Make the differentiation visible, not just stated.** At least one concept screen must show the vendor-neutral, two-pronged position (BYO integration + lightweight first-party tools → coherence layer) in a way no single-ecosystem incumbent screen could. A concept that reads like any other product-strategy tool fails the thesis.
+- **Net-positive-impact is the sharpest unresolved Satsuma-fit question** (see *Net Positive Impact* and *Risk 3*). The Track 1 terminal gate will press hardest here; treat a genuine, non-shoehorned answer as a precondition for Commit, not an afterthought.
