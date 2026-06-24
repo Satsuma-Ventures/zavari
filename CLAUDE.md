@@ -39,7 +39,7 @@ This file is read by Claude Code at the start of every session. It provides full
 
 ## Current phase skill
 
-**Active skill:** `skills/1-plant/2-thesis.md` (Phase 2 — Thesis)
+**Active skill:** `skills/1-plant/3-concept.md` (Phase 3 — Concept)
 *(Updated by venture.md at each phase transition. Replace with the path to the current phase skill before beginning work.)*
 
 ---
