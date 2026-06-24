@@ -6,7 +6,7 @@
 **Tool:** Claude Code VS Code extension  
 **Input:** An initial idea, however rough  
 **Output:** A Signal Brief — one page, ready for Phase 2
-**Version:** 1.6  
+**Version:** 1.8  
 
 
 ---
@@ -141,6 +141,9 @@ Produce a one-page document:
 **Recommendation**
 [Proceed to Phase 2 / Kill / Defer — with one sentence of honest reasoning.]
 
+**Phase 2 Agenda** *(3–4 open questions maximum)*
+[Specific questions Phase 1 research surfaced that Phase 2 should examine — not analytical findings or competitive observations. Those belong in Phase 2. The Key Assumption already captures the primary thread; this section captures secondary threads only. If Phase 1 research surfaced more than 4 genuinely distinct open questions, that is a signal the research went deeper than Phase 1 requires.]
+
 ---
 
 ### 8. Present and discuss
@@ -177,6 +180,8 @@ Present the gate question directly:
 > Based on this Signal Brief, do you want to proceed to Phase 2 — Thesis — or kill/defer this idea?
 
 If the founder proceeds: rename `artifacts/1-1-signal-brief-WIP.md` to `artifacts/1-1-signal-brief.md` and commit.
+
+> **Session management:** Before starting the next phase, follow the session rules in `venture.md` — `/compact` for phase transitions within a track, new session for track transitions.
 
 If the founder kills or defers: document the reason. This is institutional memory.
 
