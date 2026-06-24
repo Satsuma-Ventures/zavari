@@ -6,7 +6,7 @@
 **Tool:** Claude Code VS Code extension  
 **Input:** An initial idea, however rough  
 **Output:** A Signal Brief — one page, ready for Phase 2
-**Version:** 1.8  
+**Version:** 1.9  
 
 
 ---
@@ -30,7 +30,16 @@ Turn a rough idea into a tight, honest framing of the opportunity. The job is no
 
 ## Behavior
 
-### 1. Extract existing thought
+### 1. Check for existing artifacts
+
+Before doing anything else, check the `artifacts/` folder:
+
+- `artifacts/1-1-signal-brief-WIP.md` — work is in progress; read it and ask the founder whether to resume or start fresh
+- `artifacts/1-1-signal-brief.md` — phase is complete; ask whether to regenerate
+
+If neither exists, proceed to Step 2.
+
+### 2. Extract existing thought
 
 The founder has almost certainly been thinking about this idea before starting this phase. The first job is to get everything out of their head before asking clarifying questions or doing any research.
 
@@ -46,7 +55,7 @@ After they have finished, reflect back what you heard in a brief summary and ask
 
 Repeat until the founder confirms you have the full picture. Only then move to Step 2.
 
-### 2. Ask Socratic questions to sharpen understanding
+### 3. Ask Socratic questions to sharpen understanding
 
 Now ask clarifying questions — one at a time, never a list — to surface assumptions, fill gaps, and stress-test what you heard. Good questions at this stage explore:
 
@@ -62,7 +71,7 @@ Continue until you have enough to conduct meaningful research. Before moving on,
 
 > I think I have enough to research this properly. Here's what I'm going to look into: [brief summary]. Does that sound right, or is there something specific you want me to focus on?
 
-### 3. Propose a research plan
+### 4. Propose a research plan
 
 Before beginning any research, propose a plan to the founder and wait for approval:
 
@@ -75,7 +84,7 @@ Do not begin research until the founder explicitly approves the plan. This is a 
 
 **Do not spawn subagents for research.** Conduct all web searches directly in this session, sequentially. Subagents fragment the synthesis process and consume more tokens coordinating results than they save in parallelism. The research in this phase is intentionally sequential — each finding informs the next.
 
-### 4. Research the problem space
+### 5. Research the problem space
 
 Research independently before writing anything. Do not simply reflect the founder's framing back at them — find corroborating evidence, contradicting evidence, and anything the founder may have missed. Research in this sequence:
 
@@ -87,7 +96,7 @@ Research independently before writing anything. Do not simply reflect the founde
 
 Research honestly. If the problem is well-solved by an existing product, say so. If the timing looks wrong, say so. The goal is an accurate picture, not a favorable one.
 
-### 5. Evaluate against Satsuma's impact filter
+### 6. Evaluate against Satsuma's impact filter
 
 Before writing the Signal Brief, apply the net positive impact filter explicitly:
 
@@ -97,7 +106,7 @@ Before writing the Signal Brief, apply the net positive impact filter explicitly
 
 If the answer to the first two questions is unclear or weak, surface that directly. This is a gate criterion, not a formality.
 
-### 6. Stress-test the premise
+### 7. Stress-test the premise
 
 Challenge the idea directly before writing the Signal Brief:
 
@@ -108,14 +117,16 @@ Challenge the idea directly before writing the Signal Brief:
 
 Surface honest answers. Do not soften findings to make the idea look more promising than the evidence supports.
 
-### 7. Write the Signal Brief
+### 8. Write the Signal Brief
+
+Write to `artifacts/1-1-signal-brief-WIP.md` as each section completes — append incrementally. After each write, reference the file path rather than restating content.
 
 Produce a one-page document:
 
 ---
 
 **Signal Brief: [Venture Name or Working Title]**
-*Date · Author: Satsuma Ventures · Skill: 1-signal v1.0*
+*Date · Author: Satsuma Ventures · Skill: 1-signal v[current version — see skill header]*
 
 **The Problem**
 [2–3 sentences. What is broken, for whom, in what specific context.]
@@ -146,7 +157,7 @@ Produce a one-page document:
 
 ---
 
-### 8. Present and discuss
+### 9. Present and discuss
 
 Share the Signal Brief. Walk through each section. Ask:
 
@@ -156,7 +167,7 @@ Share the Signal Brief. Walk through each section. Ask:
 
 Revise based on feedback. Do not proceed to Phase 2 until the founder explicitly confirms the Signal Brief is accurate.
 
-### 9. Gate: Proceed or kill
+### 10. Gate: Proceed or kill
 
 The Phase 1 gate is deliberately narrow. Apply only these three criteria:
 
@@ -206,3 +217,17 @@ If the founder kills or defers: document the reason. This is institutional memor
 **The Signal Brief is one page.** Brevity is a discipline. If it cannot be stated in one page, the framing is not clear enough.
 
 **Phase boundary discipline.** Phase 1 produces a Signal Brief and a narrow gate decision. Phase 2 produces the thesis and risk assessment. Phase 3 produces the concept and early user validation. Do not do Phase 2's work in Phase 1, even when context invites it. Rich brownfield context is a head start on Phase 2 — it does not change Phase 1's bar.
+---
+
+## Changelog
+
+**v1.9** — Step 1 artifact check (check WIP then final before starting); explicit WIP path in write step; impact-filter contradiction resolved (net positive impact is carry-forward, not a Phase 1 gate criterion); version placeholder in artifact header.
+**v1.8** — Session management pointer added at gate step; Phase 2 agenda added as formal structured section to Signal Brief template.
+**v1.7** — Phase 2 agenda section constrained to 3–4 open questions maximum; wrong/right examples added to template.
+**v1.6** — No-subagents rule added to research plan step.
+**v1.5** — WIP file pattern: check for WIP before rebuilding; write to WIP incrementally during write step; rename WIP to final at gate.
+**v1.4** — Research plan HITL checkpoint added as new step before research begins.
+**v1.3** — Phase boundary discipline guardrails: 3-criterion gate table; explicit "what is not a Phase 1 criterion" list; "rich context is a head start, not a bar raise" principle.
+**v1.2** — Artifact path updated to `artifacts/1-1-signal-brief.md`; check-before-rebuild pattern added.
+**v1.1** — Tool updated from Claude Chat to Claude Code VS Code extension.
+**v1.0** — Initial skill.
