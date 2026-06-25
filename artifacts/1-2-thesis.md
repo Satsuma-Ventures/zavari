@@ -1,6 +1,7 @@
 # Thesis Document: Zavari (WIP)
 
 *2026-06-24 · Author: Satsuma Ventures · Skill: 2-thesis v1.6*
+*Refined 2026-06-25 — two-pronged entry re-sequenced to **first-party-led** (canonical-data foundation); see The Two-Pronged Entry and Risk 2.*
 
 ---
 
@@ -12,9 +13,9 @@ Product organizations run on siloed tools — research (Dovetail), analytics (Am
 
 No **vendor-neutral** layer triangulates across the qual + quant + market + execution signals a company actually uses *regardless of which ecosystem owns them*, and surfaces cross-team strategic incoherence at the right altitude. Incumbents detect coherence only inside their own graph; the company whose signal is scattered across Dovetail + Amplitude + Figma + Notion + the open web has no in-ecosystem answer. It is unbuilt because the value requires breadth of integration before it appears (cold-start) and depends on access to data the ecosystem owners control.
 
-**The Two-Pronged Entry**
+**The Two-Pronged Entry — first-party-led**
 
-Zavari resolves the cold-start with two complementary on-ramps to the same coherence layer: **(1) BYO — connect the tools you already use** (vendor-neutral integration), and **(2) Use ours — aggressively-priced lightweight first-party tools** (research, roadmap, planning) that own canonical data models and reduce dependence on competitor APIs. Either path seeds the intelligence layer; the pitch is "use our tools for less, and turn on the strategic intelligence when you're ready."
+Zavari resolves the cold-start with two on-ramps to the same coherence layer, but they are *not symmetric*. **(1) Use ours (foundation)** — aggressively-priced lightweight first-party tools (research, roadmap, planning) that own the **canonical data models** the intelligence layer reasons over. These are the foot-in-the-door: usable standalone by small teams, and natively wired into the strategic intelligence layer out of the box. **(2) BYO (expansion)** — vendor-neutral integration of the tools a company already uses, which becomes possible *because* the canonical concepts already exist to map third-party data into. The owned stack is therefore the architectural prerequisite and the lower-commitment land motion; BYO is the higher-commitment expansion a company turns on when ready to integrate across its stack and reduce reliance on any single vendor's API. *The first-party point tools are the acquisition surface and the canonical-data substrate — not where the differentiation lives; the durable wedge remains the cross-ecosystem coherence layer they feed.*
 
 **Market Opportunity** *(directional — estimates, not projections; founder considers these conservative)*
 
@@ -46,7 +47,7 @@ AI re-bundling + buyer consolidation + AI-collapsed build cost make a compound p
 **Top Three Risks**
 
 1. **Differentiation durability — getting bundled away.** Atlassian educating the market is net-helpful, but the real threat is that the vendor-neutral wedge isn't defensible enough and incumbents/bundlers absorb it. — *Mitigation:* own canonical data via the first-party prong, hold the cross-ecosystem neutrality incumbents structurally can't, and move fast while the window is open.
-2. **Platform dependency / co-opetition.** The integration prong depends on API access from vendors who are also competitors and can throttle or revoke it (Twitter/X, Facebook precedent). — *Mitigation:* the first-party lightweight-tools prong — a real and growing pattern in enterprise software — reduces reliance on any single vendor's API.
+2. **Platform dependency / co-opetition.** The integration prong depends on API access from vendors who are also competitors and can throttle or revoke it (Twitter/X, Facebook precedent). — *Mitigation:* the first-party lightweight-tools prong — a real and growing pattern in enterprise software — reduces reliance on any single vendor's API. Strengthened by the first-party-led sequencing: the owned canonical layer is an architectural *prerequisite* for the platform, so reduced API dependence is structural to the design, not a hedge bolted on.
 3. **Net positive impact / Satsuma fit.** The thesis is weak on Satsuma's "value created beyond the customer" filter — a genuine gate criterion, and the most material fit question. — *Mitigation:* identify a credible, non-shoehorned net-positive angle (e.g., reducing organizational waste and dysfunction; democratizing strategic rigor for under-resourced teams) and validate it before the Track 1 terminal commit.
 
 **Recommendation**
