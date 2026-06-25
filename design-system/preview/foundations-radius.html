@@ -1,0 +1,36 @@
+<!-- @dsCard group="Spacing" name="Radius & elevation" subtitle="4px controls · 6px cards · soft navy shadows" viewport="700x220" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="_base.css" />
+<style>
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .tile { background: var(--color-surface); height: 84px; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 12px; color: var(--color-secondary); border: 1px solid var(--color-border); }
+  .r-btn { border-radius: 4px; }
+  .r-card { border-radius: 6px; }
+  .r-pill { border-radius: 999px; }
+  .name { font-size: 12px; color: var(--color-heading); font-weight: 600; margin-top: 9px; }
+  .e-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 22px; }
+  .e-tile { height: 64px; background: var(--color-surface); border-radius: 6px; }
+  .e1 { box-shadow: 0 2px 8px rgba(10,31,68,0.08); }
+  .e2 { box-shadow: 0 6px 20px rgba(10,31,68,0.12); }
+  .e3 { box-shadow: 0 16px 40px rgba(10,31,68,0.18); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="card-label">Radius &amp; elevation</div>
+  <div class="grid">
+    <div><div class="tile r-btn">4px</div><div class="name">Buttons, inputs</div></div>
+    <div><div class="tile r-card">6px</div><div class="name">Cards, panels</div></div>
+    <div><div class="tile r-pill">999px</div><div class="name">Tags, chips</div></div>
+  </div>
+  <div class="e-grid">
+    <div class="e-tile e1"></div>
+    <div class="e-tile e2"></div>
+    <div class="e-tile e3"></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!-- @dsCard group="Components" name="Feedback — Alert" subtitle="Info, success, warning, error banners" viewport="700x340" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  body { padding: 28px 32px; background: var(--color-bg); }
+  .card-label { font-family: var(--font-sans); font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 18px; }
+  .stack { display: flex; flex-direction: column; gap: 14px; }
+</style>
+</head>
+<body>
+<div class="card-label">Feedback · Alert</div>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+
+<script type="text/babel" data-presets="react">
+  const { Alert } = window.ZavariDesignSystem_bb9393;
+  function Demo() {
+    return (
+      <div className="stack">
+        <Alert type="info" title="Source connected">Amplitude will begin syncing within the hour.</Alert>
+        <Alert type="success">Brief generated. Every conclusion traces to a connected source.</Alert>
+        <Alert type="warning">Two bets conflict in the current plan. Review before lock.</Alert>
+        <Alert type="error" title="Sync failed">Re-authenticate the Dovetail connection to continue.</Alert>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

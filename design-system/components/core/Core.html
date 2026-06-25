@@ -1,0 +1,73 @@
+<!-- @dsCard group="Components" name="Core — Button, Input, Card, Badge" subtitle="Primary primitives & states" viewport="700x540" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  body { padding: 28px 32px; background: var(--color-bg); }
+  .card-label { font-family: var(--font-sans); font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 18px; }
+  .group { margin-bottom: 26px; }
+  .glabel { font-size: 12px; color: var(--color-secondary); margin-bottom: 12px; font-weight: 600; }
+  .row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+</style>
+</head>
+<body>
+<div class="card-label">Core components</div>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+
+<script type="text/babel" data-presets="react">
+  const { Button, Input, Card, Badge } = window.ZavariDesignSystem_bb9393;
+
+  function Demo() {
+    return (
+      <div>
+        <div className="group">
+          <div className="glabel">Button — variants</div>
+          <div className="row">
+            <Button variant="primary">Generate brief</Button>
+            <Button variant="secondary">Connect a source</Button>
+            <Button variant="ghost">Dismiss</Button>
+            <Button variant="destructive">Delete</Button>
+            <Button variant="primary" disabled>Disabled</Button>
+          </div>
+        </div>
+
+        <div className="cols">
+          <div className="group">
+            <div className="glabel">Input — states</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <Input label="Workspace name" placeholder="e.g. Q3 Planning" />
+              <Input label="North-star metric" hint="The one number every bet ladders to" defaultValue="Weekly active teams" />
+              <Input label="Work email" error="Enter a valid work email" defaultValue="not-an-email" />
+            </div>
+          </div>
+
+          <div className="group">
+            <div className="glabel">Badge — tones</div>
+            <div className="row" style={{ marginBottom: 18 }}>
+              <Badge>Draft</Badge>
+              <Badge tone="success">Coherent</Badge>
+              <Badge tone="warning">Needs review</Badge>
+              <Badge tone="error">Blocked</Badge>
+              <Badge tone="info">First-party</Badge>
+            </div>
+            <div className="glabel">Card</div>
+            <Card eyebrow="Coherence" title="Pricing bet conflicts">
+              Two active bets pull in opposite directions. Resolve before the planning lock.
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

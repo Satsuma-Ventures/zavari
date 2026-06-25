@@ -1,0 +1,35 @@
+/* Shared base for every Zavari @dsCard preview.
+   Pulls in the real design tokens so cards stay in sync with the system. */
+@import url('../styles.css');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.card {
+  width: 700px;
+  padding: 28px 32px;
+  background: var(--color-bg);
+}
+
+/* uppercase tracked label that sits inside a card */
+.card-label {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: 12px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  margin-bottom: 16px;
+}
+
+.row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.muted { color: var(--color-secondary); }
+.mono { font-family: var(--font-mono); }

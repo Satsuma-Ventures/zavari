@@ -1,0 +1,26 @@
+<!-- @dsCard group="Spacing" name="Spacing scale" subtitle="8px base unit · multiples only" viewport="700x250" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="_base.css" />
+<style>
+  .row2 { display: flex; align-items: center; gap: 16px; margin-bottom: 10px; }
+  .bar { background: var(--zv-cyan); height: 16px; border-radius: 2px; }
+  .tok { font-family: var(--font-mono); font-size: 12px; color: var(--color-heading); width: 90px; }
+  .px { font-family: var(--font-mono); font-size: 12px; color: var(--color-secondary); width: 48px; }
+  .use { font-size: 12px; color: var(--color-secondary); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="card-label">Spacing scale · base 8px</div>
+  <div class="row2"><span class="tok">--space-1</span><span class="px">8px</span><span class="bar" style="width:8px"></span><span class="use">label → content</span></div>
+  <div class="row2"><span class="tok">--space-2</span><span class="px">16px</span><span class="bar" style="width:16px"></span><span class="use">stacked elements</span></div>
+  <div class="row2"><span class="tok">--space-3</span><span class="px">24px</span><span class="bar" style="width:24px"></span><span class="use">card padding · gutter</span></div>
+  <div class="row2"><span class="tok">--space-4</span><span class="px">32px</span><span class="bar" style="width:32px"></span><span class="use">within a section</span></div>
+  <div class="row2"><span class="tok">--space-6</span><span class="px">48px</span><span class="bar" style="width:48px"></span><span class="use">min page-edge margin</span></div>
+  <div class="row2"><span class="tok">--space-8</span><span class="px">64px</span><span class="bar" style="width:64px"></span><span class="use">between content sections</span></div>
+</div>
+</body>
+</html>

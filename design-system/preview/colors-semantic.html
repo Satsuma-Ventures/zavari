@@ -1,0 +1,27 @@
+<!-- @dsCard group="Colors" name="Semantic / functional" subtitle="Status only — kept apart from brand color" viewport="700x210" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="_base.css" />
+<style>
+  .swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .sw .chip { height: 56px; border-radius: var(--radius-input); border: 1px solid rgba(10,31,68,0.06); }
+  .sw .name { font-weight: 600; font-size: 13px; color: var(--color-heading); margin-top: 9px; }
+  .sw .hex { font-family: var(--font-mono); font-size: 12px; color: var(--color-secondary); margin-top: 2px; }
+  .note { margin-top: 18px; font-size: 12px; color: var(--color-secondary); line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="card-label">Semantic / functional · not brand colors</div>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:#38A169"></div><div class="name">Success</div><div class="hex">#38A169</div></div>
+    <div class="sw"><div class="chip" style="background:#D69E2E"></div><div class="name">Warning</div><div class="hex">#D69E2E</div></div>
+    <div class="sw"><div class="chip" style="background:#E53E3E"></div><div class="name">Error</div><div class="hex">#E53E3E</div></div>
+    <div class="sw"><div class="chip" style="background:#0099FF"></div><div class="name">Info</div><div class="hex">= Azure</div></div>
+  </div>
+  <div class="note">State is never communicated by color alone — always pair with a label, icon, or shape. These live in a separate token group from Navy / Cyan / Azure.</div>
+</div>
+</body>
+</html>
