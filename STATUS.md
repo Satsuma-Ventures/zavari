@@ -24,7 +24,7 @@
 **Latest note:** Phase 3 (Skill 3-concept v2.2).
 - **Design system:** fully synced to `design-system/`; `DESIGN.md` derived from real tokens (repo root). Complete (prior commits).
 - **`docs/` (GitHub Pages source):** scaffolded; **`docs/brand.html` synced and complete** with its `styles.css` + `@import`ed CSS + `assets/` placed under `docs/` so it serves standalone.
-- **Concept screens — pending founder drop-in.** Compiled `zavari-concepts.html` (256.4 KB) exceeds the DesignSync `get_file` 256 KiB cap (truncates). Founder will export the complete file from Claude Design to `docs/concepts/zavari-concepts.html`. (Cause: inlined base64 fonts; a CDN-font re-export would also fit under the cap.)
+- **Concept screens — ✅ dropped in (2026-06-26).** Founder exported the complete `docs/concepts/zavari-concepts.html` (1.75 MB) from Claude Design. Verified self-contained: bundler + babel modules defined inline, 38 base64 `@font-face`, no external local refs. (The earlier 256.4 KB compile was truncated by the DesignSync `get_file` 256 KiB cap; this is the full export.)
 - **GitHub Pages:** not yet configured (deferred until the marketing landing `index.html` exists, so the served root doesn't 404). Target: serve from `main` `/docs`.
 - **Marketing landing:** brief drafted (careerchief-structured, Zavari-grounded); founder to generate it in Claude Design (Project 1), then sync to `docs/` root.
 - **Next:** drop in concept page → port A/B brief → generate landing → configure Pages → gate brief + adversarial review (Track 1 terminal gate).
