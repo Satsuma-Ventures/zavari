@@ -1,0 +1,148 @@
+/* ============================================================================
+   ZAVARI — Component utility classes
+   Plain-CSS expressions of the core component patterns, so static HTML
+   (brand.html, preview cards, documents) can render brand-correct UI without
+   React. The React components in /components mirror these exact styles.
+   ============================================================================ */
+
+/* ---- Buttons ------------------------------------------------------------- */
+.zv-btn {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-label);
+  line-height: 1;
+  padding: 12px 24px;
+  border-radius: var(--radius-button);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  transition: background var(--dur-base) var(--ease-standard),
+              color var(--dur-base) var(--ease-standard),
+              border-color var(--dur-base) var(--ease-standard);
+}
+.zv-btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+.zv-btn--primary { background: var(--zv-cyan); color: var(--zv-navy); }
+.zv-btn--primary:hover { background: #00BEE6; }
+
+.zv-btn--secondary { background: var(--zv-white); color: var(--zv-navy); border-color: var(--zv-navy); }
+.zv-btn--secondary:hover { background: var(--zv-cool-gray-soft); }
+
+.zv-btn--ghost { background: transparent; color: var(--zv-navy); border-color: currentColor; }
+.zv-btn--ghost:hover { background: var(--zv-navy-080); }
+
+.zv-btn--destructive { background: var(--zv-error); color: var(--zv-white); }
+.zv-btn--destructive:hover { background: #C53030; }
+
+.zv-btn:disabled, .zv-btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; }
+
+/* ---- Card ---------------------------------------------------------------- */
+.zv-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-card);
+}
+.zv-card__title {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-h3);
+  color: var(--color-heading);
+  margin-bottom: var(--space-1);
+}
+.zv-card__body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--text-body-lh);
+  color: var(--color-ink);
+}
+
+/* ---- Input --------------------------------------------------------------- */
+.zv-input {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  color: var(--color-ink);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-input);
+  padding: 10px 12px;
+  width: 100%;
+  transition: border-color var(--dur-base) var(--ease-standard),
+              box-shadow var(--dur-base) var(--ease-standard);
+}
+.zv-input::placeholder { color: var(--color-secondary); }
+.zv-input:hover { border-color: var(--zv-accent-gray); }
+.zv-input:focus-visible { outline: none; border-color: var(--zv-azure); box-shadow: 0 0 0 3px var(--zv-info-tint); }
+
+/* ---- Field label --------------------------------------------------------- */
+.zv-label {
+  display: block;
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-label);
+  color: var(--color-heading);
+  margin-bottom: var(--space-1);
+}
+
+/* ---- Eyebrow / uppercase tracked label ----------------------------------- */
+.zv-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-secondary);
+}
+
+/* ---- Badge / Tag --------------------------------------------------------- */
+.zv-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-caption);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  color: var(--color-heading);
+  background: var(--zv-cool-gray-soft);
+}
+.zv-badge--success { color: #276749; background: var(--zv-success-tint); border-color: rgba(56,161,105,0.25); }
+.zv-badge--warning { color: #946A12; background: var(--zv-warning-tint); border-color: rgba(214,158,46,0.25); }
+.zv-badge--error   { color: #C53030; background: var(--zv-error-tint);   border-color: rgba(229,62,62,0.25); }
+
+/* ---- Alert / Banner ------------------------------------------------------ */
+.zv-alert {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--text-body-lh);
+  color: var(--color-ink);
+  padding: var(--space-2);
+  border-left: 4px solid var(--zv-info);
+  background: var(--zv-info-tint);
+  border-radius: 0 var(--radius-input) var(--radius-input) 0;
+}
+.zv-alert--info    { border-color: var(--zv-info);    background: var(--zv-info-tint); }
+.zv-alert--success { border-color: var(--zv-success); background: var(--zv-success-tint); }
+.zv-alert--warning { border-color: var(--zv-warning); background: var(--zv-warning-tint); }
+.zv-alert--error   { border-color: var(--zv-error);   background: var(--zv-error-tint); }
+
+/* ---- Stat callout -------------------------------------------------------- */
+.zv-stat__num {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-stat);
+  line-height: 1;
+  color: var(--color-heading);
+  letter-spacing: -0.01em;
+}
+.zv-stat__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-data-label);
+  color: var(--color-secondary);
+  margin-top: var(--space-1);
+}

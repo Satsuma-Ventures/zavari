@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zavari — Brand &amp; Design System</title>
+<link rel="icon" type="image/svg+xml" href="assets/zavari-icon.svg" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* ============================================================
+     Zavari — Brand & Design System page.
+     The system rendered for humans: logo, color, type, space,
+     components. Built on the Zavari tokens it documents.
+     ============================================================ */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--color-bg); color: var(--color-ink);
+    font-family: var(--font-sans); font-size: var(--text-body); line-height: var(--text-body-lh);
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: rgba(0,212,255,0.28); color: var(--zv-navy); }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 48px; }
+  h1, h2, h3 { font-family: var(--font-serif); color: var(--color-heading); }
+  .mono { font-family: var(--font-mono); }
+
+  .eyebrow {
+    font-family: var(--font-sans); font-weight: 600; font-size: 12px;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-secondary);
+  }
+  .eyebrow.on-dark { color: var(--zv-cyan); }
+
+  /* ---------- Header ---------- */
+  header.masthead { position: relative; overflow: hidden; background: var(--gradient-navy); }
+  .masthead .motif { position: absolute; inset: 0; opacity: 0.5; pointer-events: none; }
+  .masthead-inner { position: relative; padding: 40px 0 76px; }
+  .masthead .logo { height: 84px; display: block; }
+  .masthead h1 { font-weight: 600; font-size: 44px; line-height: 1.1; letter-spacing: -0.015em; color: #fff; margin-top: 52px; }
+  .masthead p { font-size: 18px; color: var(--zv-cool-gray); font-weight: 300; margin-top: 16px; max-width: 560px; line-height: 1.55; }
+  .masthead .meta { margin-top: 26px; font-family: var(--font-mono); font-size: 13px; color: var(--zv-accent-gray); }
+
+  /* ---------- Sticky sub-nav ---------- */
+  nav.toc { position: sticky; top: 0; z-index: 40; background: rgba(246,245,241,0.86); backdrop-filter: saturate(140%) blur(10px); border-bottom: 1px solid var(--color-border); }
+  .toc-inner { display: flex; gap: 30px; height: 56px; align-items: center; }
+  .toc a { position: relative; font-size: 13px; font-weight: 600; color: var(--color-secondary); transition: color var(--dur-base) var(--ease-standard); }
+  .toc a:hover { color: var(--color-heading); }
+  .toc a.active { color: var(--color-heading); }
+  .toc a.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -18px; height: 2px; border-radius: 2px; background: var(--zv-cyan); }
+
+  /* ---------- Section scaffolding ---------- */
+  section.band { padding: 84px 0; border-bottom: 1px solid var(--color-border); }
+  .sec-head { margin-bottom: 44px; }
+  .sec-head h2 { font-weight: 600; font-size: 30px; line-height: 1.2; letter-spacing: -0.01em; margin-top: 12px; }
+  .sec-head p { font-size: 16px; color: var(--color-secondary); margin-top: 12px; max-width: 620px; }
+
+  .subhead { font-family: var(--font-sans); font-weight: 600; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 18px; }
+
+  /* ---------- Logo ---------- */
+  .logo-grid { display: grid; grid-template-columns: 1.2fr 1.2fr 0.8fr; gap: 20px; }
+  .logo-frame { border-radius: var(--radius-card); border: 1px solid var(--color-border); min-height: 150px; display: flex; align-items: center; justify-content: center; padding: 28px; }
+  .logo-frame.light { background: var(--zv-soft-white); }
+  .logo-frame.dark { background: var(--zv-navy); border-color: transparent; }
+  .logo-frame img { max-width: 100%; max-height: 92px; }
+  .logo-grid.horizontal { grid-template-columns: 1fr 1fr; margin-top: 20px; }
+  .logo-grid.horizontal .logo-frame { min-height: 110px; }
+  .logo-grid.horizontal .logo-frame img { max-height: 50px; }
+  .logo-subhead { font-family: var(--font-sans); font-weight: 600; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-secondary); margin: 36px 0 0; }
+  .logo-cap { font-size: 13px; color: var(--color-secondary); margin-top: 12px; }
+  .logo-cap strong { color: var(--color-heading); font-weight: 600; display: block; margin-bottom: 2px; }
+  .rules { margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 40px; }
+  .rule { display: flex; gap: 11px; font-size: 14px; color: var(--color-ink); line-height: 1.5; }
+  .rule .mk { flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px; }
+
+  /* ---------- Color ---------- */
+  .swatch-row { display: grid; gap: 16px; }
+  .swatch-row.brand { grid-template-columns: repeat(3, 1fr); }
+  .swatch-row.neutral { grid-template-columns: repeat(4, 1fr); }
+  .swatch-row.semantic { grid-template-columns: repeat(4, 1fr); }
+  .swatch { border-radius: var(--radius-card); overflow: hidden; border: 1px solid var(--color-border); background: var(--color-surface); }
+  .swatch .chip { height: 92px; position: relative; }
+  .swatch .chip .ratio { position: absolute; left: 12px; bottom: 10px; font-family: var(--font-mono); font-size: 11px; padding: 2px 7px; border-radius: var(--radius-pill); }
+  .swatch .meta { padding: 13px 15px; }
+  .swatch .nm { font-weight: 600; font-size: 14px; color: var(--color-heading); }
+  .swatch .hx { font-family: var(--font-mono); font-size: 12px; color: var(--color-secondary); margin-top: 2px; }
+  .swatch .rl { font-size: 12px; color: var(--color-secondary); margin-top: 8px; line-height: 1.45; }
+  .swatch.small .chip { height: 60px; }
+
+  .color-note { margin-top: 28px; padding: 16px 18px; border-left: 4px solid var(--zv-warning); background: var(--zv-warning-tint); border-radius: 0 4px 4px 0; font-size: 14px; line-height: 1.55; color: var(--color-ink); }
+  .color-note strong { color: var(--color-heading); }
+
+  /* ---------- Type ---------- */
+  .type-block { padding: 22px 0; border-bottom: 1px solid var(--color-border); display: grid; grid-template-columns: 1fr 200px; gap: 24px; align-items: baseline; }
+  .type-block:last-child { border-bottom: none; }
+  .type-spec { font-family: var(--font-mono); font-size: 12px; color: var(--color-secondary); text-align: right; line-height: 1.6; }
+  .t-display { font-family: var(--font-serif); font-weight: 600; font-size: 40px; line-height: 1.12; color: var(--color-heading); letter-spacing: -0.01em; }
+  .t-h2 { font-family: var(--font-serif); font-weight: 600; font-size: 30px; color: var(--color-heading); }
+  .t-h3 { font-family: var(--font-serif); font-weight: 500; font-size: 22px; color: var(--color-heading); }
+  .t-sub { font-family: var(--font-sans); font-weight: 600; font-size: 18px; color: var(--color-heading); }
+  .t-body { font-family: var(--font-sans); font-weight: 400; font-size: 16px; color: var(--color-ink); max-width: 560px; }
+  .t-label { font-family: var(--font-sans); font-weight: 600; font-size: 14px; color: var(--color-heading); }
+  .t-cap { font-family: var(--font-mono); font-weight: 400; font-size: 12px; color: var(--color-secondary); letter-spacing: 0; }
+  .t-stat { font-family: var(--font-serif); font-weight: 500; font-size: 56px; line-height: 1; color: var(--color-heading); letter-spacing: -0.01em; }
+  .fam-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 48px; }
+  .fam { border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: 22px; background: var(--color-surface); }
+  .fam .big { font-size: 40px; color: var(--color-heading); line-height: 1; }
+  .fam .nm { font-weight: 600; font-size: 14px; color: var(--color-heading); margin-top: 16px; }
+  .fam .use { font-size: 13px; color: var(--color-secondary); margin-top: 4px; line-height: 1.45; }
+
+  /* ---------- Spacing & form ---------- */
+  .space-row { display: flex; align-items: center; gap: 18px; margin-bottom: 12px; }
+  .space-row .bar { background: var(--zv-cyan); height: 18px; border-radius: 2px; }
+  .space-row .tk { font-family: var(--font-mono); font-size: 12px; color: var(--color-heading); width: 96px; }
+  .space-row .px { font-family: var(--font-mono); font-size: 12px; color: var(--color-secondary); width: 46px; }
+  .space-row .us { font-size: 13px; color: var(--color-secondary); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 48px; }
+  .radius-row, .elev-row { display: flex; gap: 18px; }
+  .rtile { flex: 1; height: 78px; background: var(--color-surface); border: 1px solid var(--color-border); display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 12px; color: var(--color-secondary); }
+  .etile { flex: 1; height: 66px; background: var(--color-surface); border-radius: 6px; }
+  .rname { font-size: 12px; color: var(--color-secondary); margin-top: 8px; text-align: center; }
+
+  /* ---------- Components ---------- */
+  .comp { margin-bottom: 52px; }
+  .comp:last-child { margin-bottom: 0; }
+  .comp-stage { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: 30px 32px; box-shadow: var(--shadow-card); }
+  .comp-stage.dark { background: var(--gradient-navy); border-color: transparent; }
+  .comp-desc { font-size: 14px; color: var(--color-secondary); margin: 6px 0 18px; max-width: 600px; line-height: 1.5; }
+  .row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .col { display: flex; flex-direction: column; gap: 14px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+
+  /* buttons */
+  .zbtn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-weight: 600; font-size: 14px; line-height: 1; padding: 12px 24px; border-radius: var(--radius-button); border: 1.5px solid transparent; cursor: pointer; transition: background var(--dur-base) var(--ease-standard), border-color var(--dur-base) var(--ease-standard); }
+  .zbtn:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--zv-soft-white), 0 0 0 4px var(--zv-azure); }
+  .zbtn.primary { background: var(--zv-cyan); color: var(--zv-navy); }
+  .zbtn.primary:hover { background: #00BEE6; }
+  .zbtn.secondary { background: var(--zv-white); color: var(--zv-navy); border-color: var(--zv-navy); }
+  .zbtn.secondary:hover { background: var(--zv-cool-gray-soft); }
+  .zbtn.ghost { background: transparent; color: var(--zv-navy); border-color: currentColor; }
+  .zbtn.ghost:hover { background: var(--zv-navy-080); }
+  .zbtn.destructive { background: var(--zv-error); color: #fff; }
+  .zbtn.destructive:hover { background: #C53030; }
+  .zbtn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* input */
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field label { font-family: var(--font-sans); font-weight: 600; font-size: 14px; color: var(--color-heading); }
+  .field input { font-family: var(--font-sans); font-size: 16px; color: var(--color-ink); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-input); padding: 10px 12px; width: 100%; outline: none; transition: border-color var(--dur-base) var(--ease-standard), box-shadow var(--dur-base) var(--ease-standard); }
+  .field input::placeholder { color: var(--color-secondary); }
+  .field input:focus { border-color: var(--zv-azure); box-shadow: 0 0 0 3px var(--zv-info-tint); }
+  .field input.is-error { border-color: var(--zv-error); box-shadow: 0 0 0 3px var(--zv-error-tint); }
+  .field .msg { font-size: 12px; color: var(--color-secondary); }
+  .field .msg.err { color: var(--zv-error); }
+
+  /* card */
+  .zcard { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: 24px; box-shadow: var(--shadow-card); }
+  .zcard .ey { font-family: var(--font-sans); font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 8px; }
+  .zcard h4 { font-family: var(--font-serif); font-weight: 600; font-size: 22px; color: var(--color-heading); margin-bottom: 8px; }
+  .zcard p { font-size: 16px; color: var(--color-ink); line-height: 1.6; }
+
+  /* badge */
+  .zbadge { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-sans); font-weight: 600; font-size: 12px; padding: 3px 10px; border-radius: var(--radius-pill); border: 1px solid var(--color-border); color: var(--color-heading); background: var(--zv-cool-gray-soft); }
+  .zbadge.success { color: #276749; background: var(--zv-success-tint); border-color: rgba(56,161,105,0.25); }
+  .zbadge.warning { color: #946A12; background: var(--zv-warning-tint); border-color: rgba(214,158,46,0.25); }
+  .zbadge.error { color: #C53030; background: var(--zv-error-tint); border-color: rgba(229,62,62,0.25); }
+  .zbadge.info { color: #0A4F86; background: var(--zv-info-tint); border-color: rgba(0,153,255,0.25); }
+
+  /* alert */
+  .zalert { font-family: var(--font-sans); padding: 16px; border-left: 4px solid var(--zv-info); background: var(--zv-info-tint); border-radius: 0 4px 4px 0; }
+  .zalert.success { border-color: var(--zv-success); background: var(--zv-success-tint); }
+  .zalert.warning { border-color: var(--zv-warning); background: var(--zv-warning-tint); }
+  .zalert.error { border-color: var(--zv-error); background: var(--zv-error-tint); }
+  .zalert .at { font-weight: 600; font-size: 18px; color: var(--color-heading); margin-bottom: 4px; }
+  .zalert .ab { font-size: 16px; color: var(--color-ink); line-height: 1.55; }
+
+  /* stat */
+  .zstat .num { font-family: var(--font-serif); font-weight: 500; font-size: 56px; line-height: 1; color: var(--color-heading); letter-spacing: -0.01em; }
+  .zstat .num.on-dark { color: #fff; }
+  .zstat .unit { font-family: var(--font-sans); font-weight: 600; font-size: 24px; margin-left: 6px; }
+  .zstat .trend { font-family: var(--font-mono); font-size: 16px; color: var(--zv-success); margin-left: 8px; }
+  .zstat .lb { font-family: var(--font-mono); font-size: 16px; color: var(--color-secondary); margin-top: 8px; }
+  .zstat .lb.on-dark { color: var(--zv-cool-gray); }
+
+  /* source tag */
+  .stag { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-sans); font-size: 12px; font-weight: 600; color: var(--color-heading); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-pill); padding: 4px 11px 4px 9px; }
+  .stag .sd { width: 7px; height: 7px; border-radius: 50%; background: var(--zv-accent-gray); flex-shrink: 0; }
+  .stag.fp .sd { background: var(--zv-cyan); box-shadow: 0 0 0 3px var(--zv-info-tint); }
+  .stag .cf { font-size: 11px; padding-left: 7px; margin-left: 1px; border-left: 1px solid var(--color-border); }
+  .stag .cf.high { color: #276749; }
+  .stag .cf.med { color: #946A12; }
+
+  /* coherence flag */
+  .cflag { display: inline-flex; align-items: center; gap: 11px; }
+  .cflag .ct { display: flex; flex-direction: column; }
+  .cflag .cl { font-family: var(--font-sans); font-weight: 600; font-size: 14px; color: var(--color-heading); line-height: 1.3; }
+  .cflag .cd { font-family: var(--font-sans); font-size: 12px; color: var(--color-secondary); line-height: 1.4; }
+
+  footer.site { background: var(--zv-navy-deep); padding: 44px 0; }
+  footer .fi { display: flex; align-items: center; justify-content: space-between; }
+  footer .logo { height: 22px; }
+  footer span { font-size: 13px; color: var(--zv-accent-gray); }
+
+  @media (max-width: 920px) {
+    .logo-grid, .logo-grid.horizontal, .swatch-row.neutral, .swatch-row.semantic, .swatch-row.brand, .two, .form-grid, .fam-row, .rules { grid-template-columns: 1fr; }
+    .type-block { grid-template-columns: 1fr; gap: 8px; } .type-spec { text-align: left; }
+    .toc { display: none; } .wrap { padding: 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ MASTHEAD ============ -->
+<header class="masthead">
+  <svg class="motif" viewBox="0 0 1440 380" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true">
+    <g stroke="#00D4FF" stroke-width="1.1">
+      <line x1="120" y1="70" x2="1120" y2="210" opacity="0.16"/>
+      <line x1="90" y1="210" x2="1120" y2="210" opacity="0.22"/>
+      <line x1="150" y1="350" x2="1120" y2="210" opacity="0.16"/>
+      <line x1="320" y1="20" x2="1120" y2="210" opacity="0.10"/>
+    </g>
+    <circle cx="1120" cy="210" r="5" fill="#00D4FF" opacity="0.9"/>
+    <circle cx="1120" cy="210" r="16" stroke="#00D4FF" stroke-width="1" opacity="0.4"/>
+    <circle cx="1120" cy="210" r="30" stroke="#00D4FF" stroke-width="1" opacity="0.18"/>
+  </svg>
+  <div class="wrap masthead-inner">
+    <img class="logo" src="assets/zavari-logo-dkbg.svg" alt="Zavari" />
+    <h1>Brand &amp; Design System</h1>
+    <p>The anchor for everything Zavari ships — the colors, type, components, and patterns that keep every surface coherent, precise, and unmistakably Zavari.</p>
+    <div class="meta">v1.0 · 2026</div>
+  </div>
+</header>
+
+<!-- ============ TOC ============ -->
+<nav class="toc">
+  <div class="wrap toc-inner">
+    <a href="#logo">Logo</a>
+    <a href="#color">Color</a>
+    <a href="#type">Typography</a>
+    <a href="#space">Space &amp; form</a>
+    <a href="#components">Components</a>
+  </div>
+</nav>
+
+<!-- ============ LOGO ============ -->
+<section class="band" id="logo">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">01 — Identity</span>
+      <h2>Logo &amp; icon</h2>
+      <p>Three lockups, each built for a specific surface. Use as-is — never redraw, recolor, distort, or invert.</p>
+    </div>
+
+    <div class="logo-grid">
+      <div>
+        <div class="logo-frame light"><img src="assets/zavari-logo-ltbg.svg" alt="Zavari wordmark, navy on light" /></div>
+        <div class="logo-cap"><strong>Light surfaces</strong>Navy wordmark on Soft White</div>
+      </div>
+      <div>
+        <div class="logo-frame dark"><img src="assets/zavari-logo-dkbg.svg" alt="Zavari wordmark, white on navy" /></div>
+        <div class="logo-cap"><strong>Navy surfaces</strong>White wordmark on Navy</div>
+      </div>
+      <div>
+        <div class="logo-frame dark"><img src="assets/zavari-icon.svg" alt="Zavari icon" /></div>
+        <div class="logo-cap"><strong>Icon only</strong>Favicons &amp; usage below 120px</div>
+      </div>
+    </div>
+
+    <div class="logo-subhead">Horizontal lockups</div>
+    <div class="logo-grid horizontal">
+      <div>
+        <div class="logo-frame light"><img src="assets/zavari-logo-horizontal-ltbg.svg" alt="Zavari horizontal logo, navy on light" /></div>
+        <div class="logo-cap"><strong>Light surfaces</strong>Mark left of wordmark — for headers &amp; wide spaces</div>
+      </div>
+      <div>
+        <div class="logo-frame dark"><img src="assets/zavari-logo-horizontal-dkbg.svg" alt="Zavari horizontal logo, white on navy" /></div>
+        <div class="logo-cap"><strong>Navy surfaces</strong>White wordmark on Navy</div>
+      </div>
+    </div>
+
+    <div class="rules">
+      <div class="rule">
+        <svg class="mk" viewBox="0 0 20 20" fill="none" stroke="#38A169" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8.5" opacity="0.35"/><path d="M6 10.5l2.5 2.5L14 7"/></svg>
+        <span>Maintain clear space of at least 1× the logo height on every side.</span>
+      </div>
+      <div class="rule">
+        <svg class="mk" viewBox="0 0 20 20" fill="none" stroke="#38A169" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8.5" opacity="0.35"/><path d="M6 10.5l2.5 2.5L14 7"/></svg>
+        <span>Match the lockup to its background — light on light, dark on Navy.</span>
+      </div>
+      <div class="rule">
+        <svg class="mk" viewBox="0 0 20 20" fill="none" stroke="#E53E3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8.5" opacity="0.35"/><path d="M7 7l6 6M13 7l-6 6"/></svg>
+        <span>Never recolor or invert a file, or use the wordmark below 120px wide.</span>
+      </div>
+      <div class="rule">
+        <svg class="mk" viewBox="0 0 20 20" fill="none" stroke="#E53E3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="8.5" opacity="0.35"/><path d="M7 7l6 6M13 7l-6 6"/></svg>
+        <span>No drop shadows, outlines, stretching, or decorative effects.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COLOR ============ -->
+<section class="band" id="color">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">02 — Color</span>
+      <h2>Color system</h2>
+      <p>Navy carries 60–70% of every surface. Cyan is the expressive accent — sparing, graphic, never type on light. Status colors live in a separate group.</p>
+    </div>
+
+    <div class="subhead">Brand palette</div>
+    <div class="swatch-row brand">
+      <div class="swatch">
+        <div class="chip" style="background:#0A1F44"><span class="ratio" style="background:rgba(255,255,255,0.16); color:#fff;">14:1 on white</span></div>
+        <div class="meta"><div class="nm">Navy</div><div class="hx">#0A1F44</div><div class="rl">Structure, dark surfaces, headings on light. Not body text.</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#00D4FF"><span class="ratio" style="background:rgba(10,31,68,0.12); color:#0A1F44;">3.5:1 on navy</span></div>
+        <div class="meta"><div class="nm">Cyan</div><div class="hx">#00D4FF</div><div class="rl">Expressive accent — graphic only, never type on light.</div></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#0099FF"><span class="ratio" style="background:rgba(255,255,255,0.18); color:#fff;">links</span></div>
+        <div class="meta"><div class="nm">Azure</div><div class="hx">#0099FF</div><div class="rl">Functional accent — links, hover, interactive states.</div></div>
+      </div>
+    </div>
+
+    <div class="subhead" style="margin-top:40px;">Neutral palette</div>
+    <div class="swatch-row neutral">
+      <div class="swatch small"><div class="chip" style="background:#1C1714"></div><div class="meta"><div class="nm">Document Black</div><div class="hx">#1C1714</div><div class="rl">Body text on light (~18:1)</div></div></div>
+      <div class="swatch small"><div class="chip" style="background:#F6F5F1; border-bottom:1px solid var(--color-border)"></div><div class="meta"><div class="nm">Soft White</div><div class="hx">#F6F5F1</div><div class="rl">Primary background</div></div></div>
+      <div class="swatch small"><div class="chip" style="background:#E0E6ED"></div><div class="meta"><div class="nm">Cool Gray</div><div class="hx">#E0E6ED</div><div class="rl">Borders, dividers</div></div></div>
+      <div class="swatch small"><div class="chip" style="background:#808A9B"></div><div class="meta"><div class="nm">Accent Gray</div><div class="hx">#808A9B</div><div class="rl">Secondary text, captions</div></div></div>
+    </div>
+
+    <div class="subhead" style="margin-top:40px;">Semantic / functional — status only, kept apart from brand</div>
+    <div class="swatch-row semantic">
+      <div class="swatch small"><div class="chip" style="background:#38A169"></div><div class="meta"><div class="nm">Success</div><div class="hx">#38A169</div></div></div>
+      <div class="swatch small"><div class="chip" style="background:#D69E2E"></div><div class="meta"><div class="nm">Warning</div><div class="hx">#D69E2E</div></div></div>
+      <div class="swatch small"><div class="chip" style="background:#E53E3E"></div><div class="meta"><div class="nm">Error</div><div class="hx">#E53E3E</div></div></div>
+      <div class="swatch small"><div class="chip" style="background:#0099FF"></div><div class="meta"><div class="nm">Info</div><div class="hx">= Azure</div></div></div>
+    </div>
+
+    <div class="color-note">
+      <strong>Accessibility first.</strong> Cyan on Soft White is ~1.8:1 — it fails AA and is never used as type on light. Body text is always Document Black; headings are Navy; reversed text on dark is white. State is never carried by color alone — always pair it with a label, icon, or shape.
+    </div>
+  </div>
+</section>
+
+<!-- ============ TYPOGRAPHY ============ -->
+<section class="band" id="type">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">03 — Typography</span>
+      <h2>The IBM Plex superfamily</h2>
+      <p>One family, three variants designed together: Serif for headings, Sans for body and UI, Mono for data. Hierarchy comes from weight and variant — never from underlines or rules under headings.</p>
+    </div>
+
+    <div class="fam-row">
+      <div class="fam"><div class="big" style="font-family:var(--font-serif); font-weight:600;">Ag</div><div class="nm">IBM Plex Serif</div><div class="use">Headings &amp; display. Precise, considered, authoritative.</div></div>
+      <div class="fam"><div class="big" style="font-family:var(--font-sans); font-weight:400;">Ag</div><div class="nm">IBM Plex Sans</div><div class="use">Body, UI, labels, navigation. Humanist, warm, clear.</div></div>
+      <div class="fam"><div class="big" style="font-family:var(--font-mono); font-weight:400;">Ag</div><div class="nm">IBM Plex Mono</div><div class="use">Data, metrics, code. Reads as precision, not prose.</div></div>
+    </div>
+
+    <div class="subhead">Type scale — document / web</div>
+    <div class="type-block"><div class="t-display">Strategic coherence, made auditable</div><div class="type-spec">Display / H1<br/>Serif SemiBold · 40px</div></div>
+    <div class="type-block"><div class="t-h2">Where the bets stop laddering</div><div class="type-spec">H2<br/>Serif SemiBold · 30px</div></div>
+    <div class="type-block"><div class="t-h3">Second-order consequences</div><div class="type-spec">H3<br/>Serif Medium · 22px</div></div>
+    <div class="type-block"><div class="t-sub">Triangulation across your stack</div><div class="type-spec">Subheading<br/>Sans SemiBold · 18px</div></div>
+    <div class="type-block"><div class="t-body">Zavari reads qualitative, quantitative, and market signal together, then surfaces where strategy is incoherent — bets that conflict or don't ladder to the north star. Every conclusion traces to its sources.</div><div class="type-spec">Body<br/>Sans Regular · 16px</div></div>
+    <div class="type-block"><div class="t-label">Generate Strategic Opportunity Brief</div><div class="type-spec">UI Label / Button<br/>Sans SemiBold · 14px</div></div>
+    <div class="type-block"><div class="t-cap">Source: Amplitude · synced 6h ago</div><div class="type-spec">Caption / Source<br/>Mono · 12px</div></div>
+    <div class="type-block"><div><span class="t-stat">2.4</span><span style="font-family:var(--font-sans); font-weight:600; font-size:24px; color:var(--color-heading); margin-left:6px;">M</span></div><div class="type-spec">Stat Callout<br/>Serif Medium · 56px</div></div>
+  </div>
+</section>
+
+<!-- ============ SPACE & FORM ============ -->
+<section class="band" id="space">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">04 — Space &amp; form</span>
+      <h2>Spacing, radius &amp; elevation</h2>
+      <p>An 8px base unit governs all spacing. Form is restrained — modest radii and soft, navy-tinted shadows. Breathing room is not wasted space.</p>
+    </div>
+
+    <div class="subhead">Spacing scale — base 8px</div>
+    <div class="space-row"><span class="tk">--space-1</span><span class="px">8px</span><span class="bar" style="width:8px"></span><span class="us">label → content</span></div>
+    <div class="space-row"><span class="tk">--space-2</span><span class="px">16px</span><span class="bar" style="width:16px"></span><span class="us">stacked elements</span></div>
+    <div class="space-row"><span class="tk">--space-3</span><span class="px">24px</span><span class="bar" style="width:24px"></span><span class="us">card padding · gutter</span></div>
+    <div class="space-row"><span class="tk">--space-4</span><span class="px">32px</span><span class="bar" style="width:32px"></span><span class="us">within a section</span></div>
+    <div class="space-row"><span class="tk">--space-6</span><span class="px">48px</span><span class="bar" style="width:48px"></span><span class="us">min page-edge margin</span></div>
+    <div class="space-row"><span class="tk">--space-8</span><span class="px">64px</span><span class="bar" style="width:64px"></span><span class="us">between content sections</span></div>
+
+    <div class="form-grid">
+      <div>
+        <div class="subhead">Radius</div>
+        <div class="radius-row">
+          <div><div class="rtile" style="border-radius:4px">4px</div><div class="rname">Buttons, inputs</div></div>
+          <div><div class="rtile" style="border-radius:6px">6px</div><div class="rname">Cards, panels</div></div>
+          <div><div class="rtile" style="border-radius:999px">pill</div><div class="rname">Tags, chips</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="subhead">Elevation — soft, navy-tinted</div>
+        <div class="elev-row">
+          <div style="flex:1"><div class="etile" style="box-shadow:0 2px 8px rgba(10,31,68,0.08)"></div><div class="rname">Card</div></div>
+          <div style="flex:1"><div class="etile" style="box-shadow:0 6px 20px rgba(10,31,68,0.12)"></div><div class="rname">Raised</div></div>
+          <div style="flex:1"><div class="etile" style="box-shadow:0 16px 40px rgba(10,31,68,0.18)"></div><div class="rname">Overlay</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPONENTS ============ -->
+<section class="band" id="components" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">05 — Components</span>
+      <h2>Component gallery</h2>
+      <p>The building blocks, from primitives to the two signature patterns that make Zavari's promises — traceable trust and strategic coherence — native to the UI.</p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="comp">
+      <div class="subhead">Button</div>
+      <div class="comp-desc">Primary (Cyan/Navy) is reserved for one action per section. 4px radius, never a pill, no uppercase.</div>
+      <div class="comp-stage">
+        <div class="row">
+          <button class="zbtn primary">Generate brief <span aria-hidden="true">→</span></button>
+          <button class="zbtn secondary">Connect a source</button>
+          <button class="zbtn ghost">Dismiss</button>
+          <button class="zbtn destructive">Delete workspace</button>
+          <button class="zbtn primary" disabled>Disabled</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input + Card -->
+    <div class="comp">
+      <div class="two">
+        <div>
+          <div class="subhead">Input</div>
+          <div class="comp-desc">Azure focus ring; errors carry a message, never color alone.</div>
+          <div class="comp-stage">
+            <div class="col">
+              <div class="field"><label for="f1">Workspace name</label><input id="f1" value="Q3 Planning" /><span class="msg">The space your team plans in</span></div>
+              <div class="field"><label for="f2">Work email</label><input id="f2" class="is-error" value="not-an-email" /><span class="msg err">Enter a valid work email</span></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="subhead">Card &amp; Badge</div>
+          <div class="comp-desc">Surfaces are never colored — color lives in the contents.</div>
+          <div class="comp-stage">
+            <div class="zcard">
+              <div class="ey">Coherence</div>
+              <h4>Pricing bet conflicts</h4>
+              <p>Two active bets pull in opposite directions. Resolve before the planning lock.</p>
+              <div class="row" style="margin-top:16px;">
+                <span class="zbadge success">Coherent</span>
+                <span class="zbadge warning">Needs review</span>
+                <span class="zbadge info">First-party</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alert -->
+    <div class="comp">
+      <div class="subhead">Alert</div>
+      <div class="comp-desc">Tinted background with a 4px accent border — informative, never aggressive.</div>
+      <div class="comp-stage">
+        <div class="col">
+          <div class="zalert info"><div class="at">Source connected</div><div class="ab">Amplitude will begin syncing within the hour.</div></div>
+          <div class="zalert warning"><div class="ab">Two bets conflict in the current plan. Review before lock.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stat -->
+    <div class="comp">
+      <div class="subhead">Stat callout</div>
+      <div class="comp-desc">The Serif figure feels editorial and warm, not technical; the Mono data label keeps precision. Renders white on Navy surfaces.</div>
+      <div class="two">
+        <div class="comp-stage">
+          <div class="row" style="gap:48px;">
+            <div class="zstat"><div><span class="num">2.4</span><span class="unit">M</span></div><div class="lb">Addressable accounts</div></div>
+            <div class="zstat"><div><span class="num">94</span><span class="unit">%</span><span class="trend">+6%</span></div><div class="lb">Bets laddering to north star</div></div>
+          </div>
+        </div>
+        <div class="comp-stage dark">
+          <div class="row" style="gap:48px;">
+            <div class="zstat"><div><span class="num on-dark">18</span></div><div class="lb on-dark">Connected sources</div></div>
+            <div class="zstat"><div><span class="num on-dark">3.1</span><span class="unit" style="color:#fff;">M</span></div><div class="lb on-dark">Signals triangulated</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signature: SourceTag + CoherenceFlag -->
+    <div class="comp">
+      <div class="subhead" style="color:var(--color-heading);">Signature patterns</div>
+      <div class="comp-desc">SourceTag makes provenance native and vendor-neutral; CoherenceFlag shows whether a bet ladders to the north star — built from the triangulation motif.</div>
+      <div class="two">
+        <div class="comp-stage">
+          <div style="font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-secondary); font-weight:600; margin-bottom:14px;">SourceTag — provenance</div>
+          <div class="col" style="align-items:flex-start;">
+            <span class="stag"><span class="sd" aria-hidden="true"></span>Amplitude<span class="cf high">High</span></span>
+            <span class="stag"><span class="sd" aria-hidden="true"></span>Dovetail<span class="cf high">High</span></span>
+            <span class="stag fp"><span class="sd" aria-hidden="true"></span>Zavari Research<span class="cf med">Medium</span></span>
+          </div>
+          <div style="font-size:12px; color:var(--color-secondary); margin-top:16px; line-height:1.5;">Gray dot = connected source · cyan dot = Zavari first-party, a first-class peer.</div>
+        </div>
+        <div class="comp-stage">
+          <div style="font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:var(--color-secondary); font-weight:600; margin-bottom:14px;">CoherenceFlag — does it ladder?</div>
+          <div class="col">
+            <span class="cflag">
+              <svg width="28" height="22" viewBox="0 0 24 22" fill="none" stroke="#00D4FF" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><line x1="2" y1="4" x2="22" y2="11"/><line x1="2" y1="11" x2="22" y2="11"/><line x1="2" y1="18" x2="22" y2="11"/><circle cx="22" cy="11" r="1.6" fill="#00D4FF" stroke="none"/></svg>
+              <span class="ct"><span class="cl">Coherent</span><span class="cd">Ladders to: activation north star</span></span>
+            </span>
+            <span class="cflag">
+              <svg width="28" height="22" viewBox="0 0 24 22" fill="none" stroke="#0099FF" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><line x1="2" y1="4" x2="22" y2="8"/><line x1="2" y1="11" x2="22" y2="11"/><line x1="2" y1="18" x2="22" y2="14"/><circle cx="22" cy="11" r="1.6" fill="#0099FF" stroke="none" opacity="0.5"/></svg>
+              <span class="ct"><span class="cl">Drifting</span><span class="cd">Weak link to north star</span></span>
+            </span>
+            <span class="cflag">
+              <svg width="28" height="22" viewBox="0 0 24 22" fill="none" stroke="#D69E2E" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><line x1="2" y1="4" x2="22" y2="3"/><line x1="2" y1="11" x2="22" y2="11"/><line x1="2" y1="18" x2="22" y2="19"/><circle cx="22" cy="11" r="1.6" fill="#D69E2E" stroke="none" opacity="0.5"/></svg>
+              <span class="ct"><span class="cl">Conflict</span><span class="cd">Conflicts with Q3 retention bet</span></span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site">
+  <div class="wrap fi">
+    <img class="logo" src="assets/zavari-logo-horizontal-dkbg.svg" alt="Zavari" />
+    <span>Brand &amp; Design System · v1.0 · © 2026 Zavari</span>
+  </div>
+</footer>
+
+<script>
+  // Scrollspy — the active section is the last one whose top has scrolled
+  // past a line just below the sticky nav. Symmetric scrolling up or down.
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+    var sections = links.map(function (a) {
+      return document.getElementById(a.getAttribute('href').slice(1));
+    }).filter(Boolean);
+
+    function setActive(id) {
+      links.forEach(function (a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var line = 56 + 40; // sticky nav height + offset
+      var current = sections[0];
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].getBoundingClientRect().top <= line) current = sections[i];
+        else break;
+      }
+      // At the very bottom, force the last section active.
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 2) {
+        current = sections[sections.length - 1];
+      }
+      if (current) setActive(current.id);
+    }
+
+    function onScroll() {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  })();
+</script>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 # zavari — Status
-*Last updated: 2026-06-24*
+*Last updated: 2026-06-26*
 
 **Stage:** Planted
 **Current phase:** 3 — Concept
@@ -11,12 +11,20 @@
 **Rocks:** None set
 
 ## Claude Design projects (DesignSync)
-| # | Purpose | Name | Project ID | Type |
-|---|---|---|---|---|
-| 1 | Design System (persistent) | Zavari Design System | `bb939380-72d9-4244-8de9-89dfd66eb43f` | PROJECT_TYPE_DESIGN_SYSTEM |
-| 2 | Concept Screens (Phase 3) | — (not yet created) | — | pending |
+| # | Purpose | Name | Project ID | Type | Status |
+|---|---|---|---|---|---|
+| 1 | Canonical — design system + concept screens | Zavari Design System | `bb939380-72d9-4244-8de9-89dfd66eb43f` | DESIGN_SYSTEM | **canonical** |
+| 2 | Parallel concept experiment | Zavari — Phase 3 Concepts | `562a0859-4967-401e-a589-af9492dcec8a` | PROJECT | superseded |
 
-**Latest note:** Phase 3 (Skill 3-concept v2.0). Claude Design generated the design system in Project 1; **fully synced to `design-system/`** and **`DESIGN.md` derived from the real tokens** (repo root) and pushed back to Project 1.
-- **Synced to `design-system/` (complete mirror):** `SKILL.md`, `readme.md`, `styles.css`, `fonts.css`, `colors_and_type.css`, `tokens/components.css`, `brand.html`, `_adherence.oxlintrc.json`, `_ds_bundle.js`; all 8 React components (`components/{core,data,feedback,intelligence}/*.{jsx,d.ts,prompt.md}` + group HTML demos); 12 `preview/*` specimen cards + `_base.css`; and `assets/` (5 logo SVGs + `favicon.svg` + `site.webmanifest`).
-- **Left in Project 1 only (intentional):** auto-generated `_ds_manifest.json` (Claude Design pane index, regenerates); binary favicon/PWA PNGs (`apple-touch-icon.png`, `favicon-96x96.png`, `favicon.ico`, `web-app-manifest-192/512.png`) — web-deploy assets that belong at the app **web root** in Phase 6, per the webmanifest's `/...png` paths.
-- Concept Brief held as WIP at `artifacts/1-3-concept-brief-WIP.md` pending founder review before the Project 2 (concept screens) handoff.
+**Reconciliation (2026-06-26):** Two parallel Phase 3 explorations were run (a separate Concepts project + a concept exercise inside the Design System project). Resolved:
+- **Canonical = Project 1 (`bb939380`)** — single project per skill v2.1/v2.2 (design system + concepts in `concepts/`). Project 2 (`562a`) superseded; its A/B-brief idea to be ported in.
+- **Design system = Claude Design output** (canonical); `DESIGN.md` derived from it. **Stat figures = Serif** (editorial), overriding the brand guide's Mono — deliberate.
+- **Concept direction = v2.0 "intelligence, not insurance" / first-party-led**; modular-React execution (NavRail + Pager + variant toggles + MVP "ships first" markers).
+
+**Latest note:** Phase 3 (Skill 3-concept v2.2).
+- **Design system:** fully synced to `design-system/`; `DESIGN.md` derived from real tokens (repo root). Complete (prior commits).
+- **`docs/` (GitHub Pages source):** scaffolded; **`docs/brand.html` synced and complete** with its `styles.css` + `@import`ed CSS + `assets/` placed under `docs/` so it serves standalone.
+- **Concept screens — pending founder drop-in.** Compiled `zavari-concepts.html` (256.4 KB) exceeds the DesignSync `get_file` 256 KiB cap (truncates). Founder will export the complete file from Claude Design to `docs/concepts/zavari-concepts.html`. (Cause: inlined base64 fonts; a CDN-font re-export would also fit under the cap.)
+- **GitHub Pages:** not yet configured (deferred until the marketing landing `index.html` exists, so the served root doesn't 404). Target: serve from `main` `/docs`.
+- **Marketing landing:** brief drafted (careerchief-structured, Zavari-grounded); founder to generate it in Claude Design (Project 1), then sync to `docs/` root.
+- **Next:** drop in concept page → port A/B brief → generate landing → configure Pages → gate brief + adversarial review (Track 1 terminal gate).

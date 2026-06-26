@@ -1,0 +1,7 @@
+/* ============================================================================
+   ZAVARI DESIGN SYSTEM — global entry
+   Consumers link this one file. It only @imports; no rules live here.
+   ============================================================================ */
+@import url('./fonts.css');
+@import url('./colors_and_type.css');
+@import url('./tokens/components.css');
