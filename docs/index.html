@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zavari — The strategic intelligence OS for product organizations</title>
+<meta name="description" content="Zavari is proactive strategic intelligence for product leaders. It reasons across your research, product signal, and market intelligence to surface decision-ready briefs you didn't think to ask for — every conclusion traceable to its sources.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+/* ============================================================
+   ZAVARI — design tokens (sourced from colors_and_type.css)
+   ============================================================ */
+:root{
+  --zv-navy:#0A1F44; --zv-navy-deep:#07101E; --zv-cyan:#00D4FF; --zv-azure:#0099FF;
+  --zv-document-black:#1C1714; --zv-soft-white:#F6F5F1; --zv-white:#FFFFFF;
+  --zv-cool-gray:#E0E6ED; --zv-accent-gray:#808A9B; --zv-cool-gray-soft:#EDF0F4;
+  --zv-navy-080:rgba(10,31,68,0.08);
+  --zv-success:#38A169; --zv-warning:#D69E2E; --zv-info:#0099FF;
+  --zv-success-tint:rgba(56,161,105,0.08); --zv-warning-tint:rgba(214,158,46,0.08);
+  --zv-info-tint:rgba(0,153,255,0.08); --zv-azure-tint:rgba(0,153,255,0.12);
+
+  --color-bg:var(--zv-soft-white); --color-surface:var(--zv-white);
+  --color-surface-sunken:var(--zv-cool-gray-soft); --color-ink:var(--zv-document-black);
+  --color-heading:var(--zv-navy); --color-secondary:var(--zv-accent-gray);
+  --color-border:var(--zv-cool-gray); --color-link:var(--zv-azure); --color-link-hover:#007ACC;
+  --color-accent:var(--zv-cyan);
+  --gradient-navy:linear-gradient(157deg,#0A1F44 0%,#07101E 100%);
+  --focus-ring:0 0 0 2px var(--zv-soft-white),0 0 0 4px var(--zv-azure);
+
+  --font-serif:'IBM Plex Serif',Georgia,'Times New Roman',serif;
+  --font-sans:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --w-light:300; --w-reg:400; --w-med:500; --w-semi:600;
+
+  --space-half:4px; --space-1:8px; --space-2:16px; --space-3:24px; --space-4:32px;
+  --space-6:48px; --space-8:64px;
+  --r-button:4px; --r-card:6px; --r-input:4px; --r-pill:999px;
+  --shadow-card:0 2px 8px rgba(10,31,68,.08);
+  --shadow-raised:0 6px 20px rgba(10,31,68,.12);
+  --shadow-overlay:0 16px 40px rgba(10,31,68,.18);
+  --shadow-float:0 24px 60px rgba(7,16,30,.28);
+  --ease:cubic-bezier(0.2,0,0,1); --dur-fast:120ms; --dur-base:180ms; --dur-slow:260ms;
+  --tracking:0.08em;
+  --maxw:1200px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+body{
+  font-family:var(--font-sans); font-weight:var(--w-reg); font-size:16px; line-height:1.6;
+  color:var(--color-ink); background:var(--color-bg); -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+::selection{background:rgba(0,153,255,.22);}
+a{color:var(--color-link); text-decoration:none;}
+a:hover{color:var(--color-link-hover);}
+img,svg{display:block; max-width:100%;}
+:focus-visible{outline:none; box-shadow:var(--focus-ring); border-radius:2px;}
+
+/* ---- typography helpers ---- */
+.eyebrow{font-family:var(--font-sans); font-weight:var(--w-semi); font-size:12px;
+  letter-spacing:var(--tracking); text-transform:uppercase; color:var(--color-secondary);}
+.eyebrow--cyan{color:var(--zv-cyan);}
+h1,h2,h3{font-family:var(--font-serif); color:var(--color-heading); letter-spacing:-0.01em;}
+.serif{font-family:var(--font-serif);}
+.mono{font-family:var(--font-mono);}
+
+/* ---- layout ---- */
+.wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:var(--space-6);}
+section{position:relative;}
+.section-pad{padding-block:96px;}
+@media (max-width:760px){.section-pad{padding-block:64px;} .wrap{padding-inline:24px;}}
+
+/* ---- buttons ---- */
+.btn{font-family:var(--font-sans); font-weight:var(--w-semi); font-size:14px; line-height:1;
+  padding:13px 22px; border-radius:var(--r-button); border:1.5px solid transparent;
+  cursor:pointer; display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
+  transition:background var(--dur-base) var(--ease), color var(--dur-base) var(--ease),
+    border-color var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);}
+.btn:hover{transform:translateY(-1px);}
+.btn--primary{background:var(--zv-cyan); color:var(--zv-navy);}
+.btn--primary:hover{background:#19DAFF; color:var(--zv-navy);}
+.btn--secondary{background:transparent; color:var(--zv-navy); border-color:var(--zv-navy);}
+.btn--secondary:hover{background:var(--zv-navy-080); color:var(--zv-navy);}
+.btn--ghost-light{background:transparent; color:var(--zv-white); border-color:rgba(255,255,255,.45);}
+.btn--ghost-light:hover{background:rgba(255,255,255,.08); color:var(--zv-white);}
+.btn .arrow{transition:transform var(--dur-base) var(--ease);}
+.btn:hover .arrow{transform:translateX(3px);}
+
+/* ---- SourceTag ---- */
+.stag{display:inline-flex; align-items:center; gap:7px; font-family:var(--font-sans);
+  font-size:12px; font-weight:var(--w-semi); color:var(--color-heading);
+  background:var(--color-surface); border:1px solid var(--color-border);
+  border-radius:var(--r-pill); padding:3px 10px 3px 8px;}
+.stag__dot{width:7px; height:7px; border-radius:50%; background:var(--zv-accent-gray); flex-shrink:0;}
+.stag--fp .stag__dot{background:var(--zv-cyan); box-shadow:0 0 0 3px var(--zv-info-tint);}
+.stag__count{font-family:var(--font-mono); color:var(--color-secondary); font-weight:400;}
+.stag__conf{font-weight:var(--w-semi); font-size:11px; padding-left:6px; margin-left:1px;
+  border-left:1px solid var(--color-border);}
+.stag__conf--high{color:#276749;} .stag__conf--med{color:#946A12;} .stag__conf--low{color:var(--color-secondary);}
+
+/* ---- CoherenceFlag ---- */
+.cflag{display:inline-flex; align-items:center; gap:9px;}
+.cflag__mark{width:30px; height:24px; flex-shrink:0;}
+.cflag__label{font-family:var(--font-sans); font-weight:var(--w-semi); font-size:14px;
+  color:var(--color-heading); line-height:1.25;}
+.cflag__detail{font-family:var(--font-sans); font-size:12px; color:var(--color-secondary); line-height:1.4;}
+.on-dark .cflag__label{color:var(--zv-white);}
+.on-dark .cflag__detail{color:var(--zv-cool-gray);}
+
+/* ---- StatCallout ---- */
+.stat__num{font-family:var(--font-serif); font-weight:var(--w-med); font-size:56px; line-height:1;
+  color:var(--color-heading); letter-spacing:-0.02em;}
+.stat__num .unit{font-family:var(--font-sans); font-weight:var(--w-semi); font-size:26px;
+  margin-left:2px; letter-spacing:0;}
+.stat__label{font-family:var(--font-mono); font-size:13px; color:var(--color-secondary);
+  margin-top:10px; line-height:1.45;}
+.on-dark .stat__num{color:var(--zv-white);}
+.on-dark .stat__label{color:var(--zv-cool-gray);}
+
+/* ---- badge / pill ---- */
+.pill{display:inline-flex; align-items:center; gap:7px; font-family:var(--font-sans);
+  font-weight:var(--w-semi); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
+  padding:5px 12px; border-radius:var(--r-pill); border:1px solid var(--color-border);
+  color:var(--color-heading); background:var(--color-surface);}
+.pill__dot{width:8px; height:8px; border-radius:50%;}
+.pill--owned .pill__dot{background:var(--zv-cyan); box-shadow:0 0 0 3px var(--zv-info-tint);}
+.pill--ai .pill__dot{background:var(--zv-azure);}
+.pill--byo .pill__dot{background:var(--zv-accent-gray);}
+
+/* card */
+.card{background:var(--color-surface); border:1px solid var(--color-border);
+  border-radius:var(--r-card); padding:var(--space-3); box-shadow:var(--shadow-card);}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{position:sticky; top:0; z-index:50; background:rgba(246,245,241,.82);
+  backdrop-filter:saturate(140%) blur(14px); -webkit-backdrop-filter:saturate(140%) blur(14px);
+  border-bottom:1px solid transparent; transition:border-color var(--dur-base) var(--ease),
+   background var(--dur-base) var(--ease);}
+.nav.is-scrolled{border-bottom-color:var(--color-border);}
+.nav__inner{max-width:var(--maxw); margin-inline:auto; padding:14px var(--space-6);
+  display:flex; align-items:center; justify-content:space-between; gap:24px;}
+.nav__logo img{height:26px; width:auto;}
+.nav__links{display:flex; align-items:center; gap:30px;}
+.nav__links a{font-size:14px; font-weight:var(--w-med); color:var(--color-heading);}
+.nav__links a:hover{color:var(--color-link);}
+.nav__cta{display:flex; align-items:center; gap:14px;}
+@media (max-width:880px){.nav__links{display:none;} }
+@media (max-width:480px){.nav__cta .nav__signin{display:none;} .nav__inner{padding-inline:24px;}}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{background:var(--gradient-navy); color:var(--zv-white); overflow:hidden;
+  padding-top:84px; padding-bottom:96px;}
+.hero__bg{position:absolute; inset:0; pointer-events:none; opacity:.5;}
+.hero .wrap{position:relative; z-index:1;}
+.hero__grid{display:grid; grid-template-columns:1.02fr 0.98fr; gap:60px; align-items:center;}
+.hero__eyebrow{display:inline-flex; align-items:center; gap:10px; margin-bottom:24px;}
+.hero__eyebrow .tri{width:20px;height:16px;}
+.hero h1{font-weight:var(--w-semi); font-size:54px; line-height:1.08; color:var(--zv-white);
+  letter-spacing:-0.02em;}
+.hero h1 em{font-style:normal; color:var(--zv-cyan);}
+.hero__sub{font-size:19px; line-height:1.6; color:var(--zv-cool-gray); margin-top:24px; max-width:560px;}
+.hero__sub b{color:var(--zv-white); font-weight:var(--w-semi);}
+.hero__actions{display:flex; align-items:center; gap:14px; margin-top:36px; flex-wrap:wrap;}
+.hero__note{margin-top:22px; font-family:var(--font-mono); font-size:12px; color:var(--zv-accent-gray);
+  display:flex; align-items:center; gap:8px;}
+.hero__note .pulse{width:7px;height:7px;border-radius:50%;background:var(--zv-cyan);
+  box-shadow:0 0 0 0 rgba(0,212,255,.5);}
+@media (prefers-reduced-motion:no-preference){.hero__note .pulse{animation:pulse 2.6s var(--ease) infinite;}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,212,255,.45);}70%{box-shadow:0 0 0 9px rgba(0,212,255,0);}100%{box-shadow:0 0 0 0 rgba(0,212,255,0);}}
+@media (max-width:980px){.hero__grid{grid-template-columns:1fr; gap:48px;} .hero h1{font-size:42px;}}
+@media (max-width:480px){.hero h1{font-size:34px;} .hero__sub{font-size:17px;}}
+
+/* ---- Command Layer mock (hero visual) ---- */
+.cmd{background:var(--zv-white); border-radius:10px; box-shadow:var(--shadow-float);
+  overflow:hidden; color:var(--color-ink); border:1px solid rgba(255,255,255,.08);}
+.cmd__bar{display:flex; align-items:center; gap:10px; padding:13px 18px;
+  background:var(--zv-navy); border-bottom:1px solid rgba(255,255,255,.08);}
+.cmd__bar .dotrow{display:flex; gap:6px;}
+.cmd__bar .dotrow span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.22);}
+.cmd__bar h4{font-family:var(--font-sans); font-weight:var(--w-semi); font-size:13px;
+  color:var(--zv-white); margin-left:4px;}
+.cmd__bar .live{margin-left:auto; font-family:var(--font-mono); font-size:11px; color:var(--zv-cyan);
+  display:inline-flex; align-items:center; gap:6px;}
+.cmd__bar .live i{width:6px;height:6px;border-radius:50%;background:var(--zv-cyan); font-style:normal;}
+.cmd__lead{padding:16px 18px 4px; font-family:var(--font-sans); font-size:12px;
+  color:var(--color-secondary);}
+.cmd__lead b{color:var(--color-heading); font-weight:var(--w-semi);}
+.cmd__list{padding:8px 14px 16px; display:flex; flex-direction:column; gap:10px;}
+.cmd__item{border:1px solid var(--color-border); border-radius:var(--r-card); padding:14px 15px;
+  background:var(--zv-white); transition:border-color var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease);}
+.cmd__item:hover{border-color:#C7D2E0; box-shadow:var(--shadow-card);}
+.cmd__item.is-key{border-color:rgba(0,212,255,.55); box-shadow:0 0 0 3px var(--zv-info-tint);}
+.cmd__kicker{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:7px;}
+.cmd__type{font-family:var(--font-mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--color-secondary);}
+.cmd__type b{color:var(--zv-navy);}
+.cmd__when{font-family:var(--font-mono); font-size:10.5px; color:var(--color-secondary);}
+.cmd__title{font-family:var(--font-serif); font-weight:var(--w-med); font-size:16px;
+  color:var(--color-heading); line-height:1.32;}
+.cmd__tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:11px;}
+
+/* ============================================================
+   CATEGORY BAND
+   ============================================================ */
+.catband{background:var(--zv-navy-deep); color:var(--zv-cool-gray); border-top:1px solid rgba(255,255,255,.06);}
+.catband .wrap{padding-block:34px; display:flex; align-items:center; gap:28px; flex-wrap:wrap;}
+.catband__mark{flex-shrink:0;}
+.catband p{font-family:var(--font-serif); font-size:21px; line-height:1.5; color:var(--zv-soft-white);
+  font-weight:var(--w-reg); max-width:none; flex:1; min-width:280px;}
+.catband p b{color:var(--zv-cyan); font-weight:var(--w-med);}
+
+/* ============================================================
+   SECTION HEADERS
+   ============================================================ */
+.shead{max-width:720px; margin-bottom:56px;}
+.shead h2{font-weight:var(--w-semi); font-size:36px; line-height:1.16; margin-top:16px;}
+.shead p{font-size:18px; color:var(--color-ink); margin-top:18px; line-height:1.6;}
+.shead--center{margin-inline:auto; text-align:center;}
+@media (max-width:480px){.shead h2{font-size:28px;}}
+
+/* ============================================================
+   PROOF STRIP
+   ============================================================ */
+.proof{background:var(--zv-white); border-top:1px solid var(--color-border); border-bottom:1px solid var(--color-border);}
+.proof__head{display:flex; align-items:baseline; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-bottom:36px;}
+.proof__head h3{font-family:var(--font-sans); font-weight:var(--w-semi); font-size:15px; color:var(--color-heading);
+  letter-spacing:.01em;}
+.proof__attr{font-family:var(--font-mono); font-size:12px; color:var(--color-secondary);}
+.proof__row{display:grid; grid-template-columns:repeat(3,1fr); gap:40px;}
+.proof__div{height:1px; background:var(--color-border); margin-block:48px;}
+.proof__gap{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;}
+.proof__gap-stats{display:flex; gap:48px;}
+.proof__gap p{font-size:17px; line-height:1.6; color:var(--color-ink);}
+.proof__gap p b{color:var(--color-heading); font-weight:var(--w-semi);}
+@media (max-width:760px){.proof__row{grid-template-columns:1fr; gap:32px;} .proof__gap{grid-template-columns:1fr; gap:28px;}}
+
+/* ============================================================
+   HOW IT WORKS / ECOSYSTEM
+   ============================================================ */
+.how{background:var(--color-bg);}
+.beats{display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-bottom:64px;}
+.beat{position:relative; padding-top:26px;}
+.beat__n{font-family:var(--font-mono); font-size:12px; color:var(--zv-azure); font-weight:var(--w-med);}
+.beat h3{font-family:var(--font-serif); font-weight:var(--w-med); font-size:21px; margin-top:12px;}
+.beat p{font-size:15px; line-height:1.6; color:var(--color-ink); margin-top:10px;}
+.beat__top{position:absolute; top:0; left:0; width:40px; height:3px; background:var(--zv-cyan); border-radius:2px;}
+@media (max-width:760px){.beats{grid-template-columns:1fr; gap:36px;}}
+
+/* ecosystem diagram */
+.eco{background:var(--zv-white); border:1px solid var(--color-border); border-radius:10px;
+  box-shadow:var(--shadow-card); overflow:hidden;}
+.eco__head{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  padding:18px 24px; border-bottom:1px solid var(--color-border); background:var(--color-surface-sunken);}
+.eco__head h4{font-family:var(--font-serif); font-weight:var(--w-med); font-size:18px; color:var(--color-heading);}
+.eco__legend{display:flex; gap:8px; flex-wrap:wrap;}
+.eco__body{padding:28px 24px 30px;}
+.eco__layer-label{font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--color-secondary); margin-bottom:14px; display:flex; align-items:center; gap:10px;}
+.eco__layer-label::after{content:""; flex:1; height:1px; background:var(--color-border);}
+
+/* intelligence layer */
+.eco__intel{background:var(--gradient-navy); border-radius:8px; padding:20px 22px; color:var(--zv-white);}
+.eco__intel-top{display:flex; align-items:center; gap:10px; margin-bottom:16px;}
+.eco__intel-top .lbl{font-family:var(--font-sans); font-weight:var(--w-semi); font-size:13px; color:var(--zv-cyan);
+  letter-spacing:.04em; text-transform:uppercase;}
+.eco__chips{display:flex; gap:10px; flex-wrap:wrap;}
+.eco__chip{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:var(--r-button);
+  padding:9px 14px; font-family:var(--font-sans); font-weight:var(--w-med); font-size:13px; color:var(--zv-white);}
+.eco__chip--lead{background:rgba(0,212,255,.14); border-color:rgba(0,212,255,.4);}
+
+/* bridges */
+.eco__bridges{display:flex; gap:14px; justify-content:center; margin:18px 0; flex-wrap:wrap;}
+.eco__bridge{display:inline-flex; align-items:center; gap:9px; padding:8px 14px; border-radius:var(--r-pill);
+  border:1px dashed #B9C6D6; background:var(--color-surface); font-family:var(--font-mono); font-size:12px;
+  color:var(--zv-navy);}
+.eco__bridge svg{flex-shrink:0;}
+
+/* node grid */
+.eco__nodes{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+.node{border:1px solid var(--color-border); border-radius:var(--r-card); padding:15px 15px 14px;
+  background:var(--zv-white); position:relative; transition:border-color var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease);}
+.node:hover{box-shadow:var(--shadow-card);}
+.node--mvp{border-color:rgba(0,212,255,.5); box-shadow:0 0 0 3px var(--zv-info-tint);}
+.node__tag{position:absolute; top:-9px; right:12px; font-family:var(--font-mono); font-size:9.5px;
+  letter-spacing:.05em; text-transform:uppercase; background:var(--zv-cyan); color:var(--zv-navy);
+  font-weight:var(--w-med); padding:2px 8px; border-radius:var(--r-pill);}
+.node__top{display:flex; align-items:center; gap:8px; margin-bottom:9px;}
+.node__dot{width:8px;height:8px;border-radius:50%; flex-shrink:0;}
+.node__dot--owned{background:var(--zv-cyan); box-shadow:0 0 0 3px var(--zv-info-tint);}
+.node__dot--ai{background:var(--zv-azure);}
+.node__dot--byo{background:var(--zv-accent-gray);}
+.node__name{font-family:var(--font-sans); font-weight:var(--w-semi); font-size:14px; color:var(--color-heading);}
+.node__role{font-family:var(--font-sans); font-size:12.5px; color:var(--color-secondary); line-height:1.45;}
+.eco__foot{margin-top:18px; font-family:var(--font-mono); font-size:12px; color:var(--color-secondary);
+  display:flex; align-items:center; gap:9px;}
+.eco__foot .sw{width:10px;height:10px;border-radius:2px;background:var(--zv-info-tint);
+  border:1px solid rgba(0,212,255,.5); box-shadow:0 0 0 2px var(--zv-info-tint);}
+@media (max-width:760px){.eco__nodes{grid-template-columns:1fr 1fr;} }
+@media (max-width:480px){.eco__nodes{grid-template-columns:1fr;}}
+
+/* ============================================================
+   MARQUEE — Strategic Opportunity Brief
+   ============================================================ */
+.marquee{background:var(--zv-navy); color:var(--zv-white); overflow:hidden;}
+.marquee__bg{position:absolute; inset:0; opacity:.4; pointer-events:none;}
+.marquee .wrap{position:relative; z-index:1;}
+.marquee .shead h2{color:var(--zv-white);}
+.marquee .shead p{color:var(--zv-cool-gray);}
+.marquee .eyebrow{color:var(--zv-cyan);}
+.brief{background:var(--zv-white); color:var(--color-ink); border-radius:10px; box-shadow:var(--shadow-overlay);
+  overflow:hidden; max-width:920px; margin-inline:auto;}
+.brief__top{padding:22px 30px; border-bottom:1px solid var(--color-border); display:flex;
+  align-items:flex-start; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+.brief__meta{display:flex; align-items:center; gap:12px; margin-bottom:14px;}
+.brief__badge{font-family:var(--font-mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+  color:var(--zv-navy); background:var(--zv-info-tint); border:1px solid rgba(0,153,255,.3);
+  border-radius:var(--r-pill); padding:3px 11px; font-weight:var(--w-med);}
+.brief__auto{font-family:var(--font-mono); font-size:11px; color:var(--color-secondary);}
+.brief__q{font-family:var(--font-serif); font-weight:var(--w-semi); font-size:25px; line-height:1.28;
+  color:var(--color-heading); max-width:560px;}
+.brief__flagwrap{flex-shrink:0; text-align:right; padding-top:4px;}
+.brief__body{padding:26px 30px 8px;}
+.brief__section{margin-bottom:24px;}
+.brief__label{font-family:var(--font-mono); font-size:11px; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--color-secondary); margin-bottom:12px;}
+.finding{display:flex; gap:14px; padding:16px 0; border-top:1px solid var(--color-border);}
+.finding:first-of-type{border-top:none; padding-top:4px;}
+.finding__rank{font-family:var(--font-mono); font-size:13px; color:var(--zv-azure); font-weight:var(--w-med);
+  flex-shrink:0; padding-top:2px; width:28px;}
+.finding__body{flex:1;}
+.finding__text{font-family:var(--font-sans); font-size:15.5px; line-height:1.55; color:var(--color-ink);}
+.finding__text b{color:var(--color-heading); font-weight:var(--w-semi);}
+.finding__tags{display:flex; flex-wrap:wrap; gap:7px; margin-top:11px; align-items:center;}
+.finding__so{margin-top:10px; padding:11px 14px; background:var(--color-surface-sunken);
+  border-radius:var(--r-button); border-left:3px solid var(--zv-azure);}
+.finding__so .lbl{font-family:var(--font-mono); font-size:10.5px; letter-spacing:.05em; text-transform:uppercase;
+  color:var(--zv-azure); font-weight:var(--w-med);}
+.finding__so p{font-family:var(--font-sans); font-size:14px; line-height:1.5; color:var(--color-ink); margin-top:4px;}
+.brief__rec{background:var(--color-surface-sunken); border-top:1px solid var(--color-border);
+  padding:22px 30px; display:flex; gap:16px; align-items:flex-start;}
+.brief__rec .tri-badge{flex-shrink:0; width:36px; height:36px; border-radius:50%; background:var(--zv-navy);
+  display:flex; align-items:center; justify-content:center;}
+.brief__rec h5{font-family:var(--font-sans); font-weight:var(--w-semi); font-size:12px; letter-spacing:.05em;
+  text-transform:uppercase; color:var(--zv-navy); margin-bottom:6px;}
+.brief__rec p{font-family:var(--font-serif); font-size:17px; line-height:1.5; color:var(--color-heading);}
+.brief__foot{padding:14px 30px; display:flex; align-items:center; justify-content:space-between; gap:14px;
+  flex-wrap:wrap; border-top:1px solid var(--color-border); background:var(--zv-white);}
+.brief__foot .trace{font-family:var(--font-mono); font-size:11.5px; color:var(--color-secondary);
+  display:inline-flex; align-items:center; gap:8px;}
+.brief__caption{text-align:center; font-family:var(--font-mono); font-size:12px; color:var(--zv-cool-gray);
+  margin-top:26px;}
+@media (max-width:560px){.brief__q{font-size:20px;} .brief__top,.brief__body,.brief__rec,.brief__foot{padding-inline:20px;}}
+
+/* ============================================================
+   HONEST SECTION
+   ============================================================ */
+.honest{background:var(--color-bg);}
+.honest__grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; align-items:start;}
+.honest__list{display:flex; flex-direction:column; gap:2px;}
+.honest__item{display:flex; gap:16px; padding:20px 0; border-top:1px solid var(--color-border);}
+.honest__item:first-child{border-top:none;}
+.honest__item .mk{flex-shrink:0; margin-top:3px;}
+.honest__item h4{font-family:var(--font-sans); font-weight:var(--w-semi); font-size:16px; color:var(--color-heading);}
+.honest__item p{font-size:15px; line-height:1.6; color:var(--color-ink); margin-top:5px;}
+@media (max-width:760px){.honest__grid{grid-template-columns:1fr; gap:36px;}}
+
+/* ============================================================
+   TESTIMONIAL
+   ============================================================ */
+.testi{background:var(--zv-white); border-top:1px solid var(--color-border);}
+.testi__grid{display:grid; grid-template-columns:1.3fr 0.7fr; gap:56px; align-items:stretch;}
+.testi__quote{font-family:var(--font-serif); font-weight:var(--w-reg); font-size:27px; line-height:1.45;
+  color:var(--color-heading); letter-spacing:-0.01em;}
+.testi__quote b{font-weight:var(--w-semi); color:var(--zv-navy);}
+.testi__by{display:flex; align-items:center; gap:14px; margin-top:28px;}
+.testi__avatar{width:46px; height:46px; border-radius:50%; background:var(--gradient-navy);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.testi__avatar span{font-family:var(--font-serif); font-weight:var(--w-semi); color:var(--zv-white); font-size:18px;}
+.testi__by .name{font-family:var(--font-sans); font-weight:var(--w-semi); font-size:15px; color:var(--color-heading);}
+.testi__by .role{font-family:var(--font-sans); font-size:13px; color:var(--color-secondary); margin-top:2px;}
+.testi__placeholder{border:1px dashed #C2CBD8; border-radius:var(--r-card); padding:26px 24px;
+  background:var(--color-surface-sunken); display:flex; flex-direction:column; justify-content:center;}
+.testi__placeholder .tag{font-family:var(--font-mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+  color:var(--color-secondary); margin-bottom:14px;}
+.testi__placeholder .ghost-line{height:9px; border-radius:3px; background:var(--zv-cool-gray); margin-bottom:10px;}
+.testi__placeholder p{font-family:var(--font-sans); font-size:13px; line-height:1.55; color:var(--color-secondary);
+  margin-top:14px;}
+@media (max-width:760px){.testi__grid{grid-template-columns:1fr; gap:36px;} .testi__quote{font-size:22px;}}
+
+/* ============================================================
+   FOOTER CTA
+   ============================================================ */
+.footcta{background:var(--gradient-navy); color:var(--zv-white); overflow:hidden;}
+.footcta__bg{position:absolute; inset:0; opacity:.5; pointer-events:none;}
+.footcta .wrap{position:relative; z-index:1; padding-block:96px;}
+.footcta__head{max-width:680px;}
+.footcta .eyebrow{color:var(--zv-cyan);}
+.footcta h2{font-family:var(--font-serif); font-weight:var(--w-semi); font-size:42px; line-height:1.14;
+  color:var(--zv-white); margin-top:16px; letter-spacing:-0.02em;}
+.footcta__sub{font-size:18px; line-height:1.6; color:var(--zv-cool-gray); margin-top:20px;}
+.footcta__paths{display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:44px;}
+.path{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); border-radius:8px;
+  padding:26px; transition:border-color var(--dur-base) var(--ease), background var(--dur-base) var(--ease);}
+.path:hover{border-color:rgba(0,212,255,.4); background:rgba(255,255,255,.06);}
+.path--primary{border-color:rgba(0,212,255,.35); background:rgba(0,212,255,.07);}
+.path__k{font-family:var(--font-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--zv-cyan); margin-bottom:12px;}
+.path--byo .path__k{color:var(--zv-cool-gray);}
+.path h3{font-family:var(--font-serif); font-weight:var(--w-med); font-size:22px; color:var(--zv-white);}
+.path p{font-size:14.5px; line-height:1.55; color:var(--zv-cool-gray); margin-top:10px; margin-bottom:22px;}
+@media (max-width:680px){.footcta__paths{grid-template-columns:1fr;} .footcta h2{font-size:32px;} .footcta .wrap{padding-block:64px;}}
+
+/* footer */
+.footer{background:var(--zv-navy-deep); color:var(--zv-cool-gray); border-top:1px solid rgba(255,255,255,.06);}
+.footer .wrap{padding-block:44px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+.footer__logo img{height:24px;}
+.footer__links{display:flex; gap:26px; align-items:center;}
+.footer__links a{font-family:var(--font-sans); font-size:13px; font-weight:var(--w-med); color:var(--zv-cool-gray);}
+.footer__links a:hover{color:var(--zv-cyan);}
+.footer__copy{font-family:var(--font-mono); font-size:11.5px; color:var(--zv-accent-gray); width:100%;
+  padding-top:8px; border-top:1px solid rgba(255,255,255,.06); margin-top:8px;}
+
+/* reveal: transform-only motion. Opacity stays 1 at all times, so content is
+   ALWAYS visible even if the IntersectionObserver never fires or CSS transitions
+   never tick in a given render context. Motion is pure enhancement. */
+[data-reveal]{opacity:1;}
+[data-reveal].reveal-armed{transform:translateY(14px);}
+[data-reveal].is-in{transform:none; transition:transform .55s var(--ease);}
+@media (prefers-reduced-motion:reduce){[data-reveal].reveal-armed{transform:none;}}
+</style>
+</head>
+<body>
+
+<!-- ============================== NAV ============================== -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="nav__logo" href="#top" aria-label="Zavari — home">
+      <img src="assets/zavari-logo-horizontal-ltbg.svg" alt="Zavari">
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#how">How it works</a>
+      <a href="#product">The product</a>
+      <a href="#access">Early access</a>
+    </nav>
+    <div class="nav__cta">
+      <a class="nav__signin" href="concepts/zavari-concepts.html" style="font-size:14px;font-weight:500;color:var(--color-heading);">See the concept</a>
+      <a class="btn btn--primary" href="#access">Request early access</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============================== HERO ============================== -->
+<section class="hero" data-screen-label="Hero">
+  <div class="hero__bg" aria-hidden="true">
+    <svg width="100%" height="100%" preserveAspectRatio="xMaxYMid slice" viewBox="0 0 1200 760" fill="none">
+      <g stroke="#1B4987" stroke-width="1" opacity="0.5">
+        <line x1="120" y1="120" x2="960" y2="400"></line>
+        <line x1="60" y1="420" x2="960" y2="400"></line>
+        <line x1="200" y1="700" x2="960" y2="400"></line>
+        <line x1="420" y1="60" x2="960" y2="400"></line>
+      </g>
+      <g stroke="#00D4FF" stroke-width="1.4" opacity="0.34">
+        <line x1="700" y1="180" x2="960" y2="400"></line>
+        <line x1="660" y1="600" x2="960" y2="400"></line>
+        <line x1="1140" y1="260" x2="960" y2="400"></line>
+      </g>
+      <circle cx="960" cy="400" r="3.4" fill="#00D4FF" opacity="0.85"></circle>
+      <circle cx="960" cy="400" r="11" stroke="#00D4FF" stroke-width="1" opacity="0.3"></circle>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="hero__grid">
+      <div data-reveal>
+        <div class="hero__eyebrow">
+          <svg class="tri" viewBox="0 0 24 18" fill="none" stroke="#00D4FF" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
+            <line x1="2" y1="3" x2="22" y2="9"></line><line x1="2" y1="9" x2="22" y2="9"></line><line x1="2" y1="15" x2="22" y2="9"></line>
+            <circle cx="22" cy="9" r="1.6" fill="#00D4FF" stroke="none"></circle>
+          </svg>
+          <span class="eyebrow eyebrow--cyan">The strategic intelligence OS for product organizations</span>
+        </div>
+        <h1>Intelligence that surfaces <em>what you didn't think to ask.</em></h1>
+        <p class="hero__sub">Zavari reasons across your research, product signal, and market intelligence to generate decision-ready briefs and opportunities — continuously, between planning cycles, not only when you query it. <b>Start with Zavari's own tools; connect the rest of your stack when you're ready.</b></p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#access">Request early access <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost-light" href="concepts/zavari-concepts.html">See the concept</a>
+        </div>
+        <div class="hero__note"><span class="pulse" aria-hidden="true"></span>Every conclusion traces back to its sources</div>
+      </div>
+
+      <!-- Strategic Command Layer mock -->
+      <div data-reveal aria-label="Strategic Command Layer preview">
+        <div class="cmd">
+          <div class="cmd__bar">
+            <div class="dotrow" aria-hidden="true"><span></span><span></span><span></span></div>
+            <h4>Strategic Command Layer</h4>
+            <span class="live"><i></i>Live</span>
+          </div>
+          <div class="cmd__lead">Surfaced for <b>you</b> since you last looked — <b>3 new</b></div>
+          <div class="cmd__list">
+            <article class="cmd__item is-key">
+              <div class="cmd__kicker">
+                <span class="cmd__type"><b>Opportunity Brief</b> · proactively generated</span>
+                <span class="cmd__when">2h ago</span>
+              </div>
+              <div class="cmd__title">Activation drop in self-serve isn't onboarding — it's a pricing-page mismatch upstream.</div>
+              <div class="cmd__tags">
+                <span class="stag stag--fp"><span class="stag__dot"></span>Zavari Research<span class="stag__conf stag__conf--high">High confidence</span></span>
+                <span class="stag"><span class="stag__dot"></span>Amplitude<span class="stag__count">·1,240</span></span>
+              </div>
+            </article>
+            <article class="cmd__item">
+              <div class="cmd__kicker">
+                <span class="cmd__type"><b>Coherence signal</b></span>
+                <span class="cmd__when">Today</span>
+              </div>
+              <div class="cmd__title">Two roadmap bets now pull against the retention north star.</div>
+              <div class="cmd__tags">
+                <span class="stag stag--fp"><span class="stag__dot"></span>Zavari Planning</span>
+                <span class="stag"><span class="stag__dot"></span>Linear</span>
+              </div>
+            </article>
+            <article class="cmd__item">
+              <div class="cmd__kicker">
+                <span class="cmd__type"><b>Market signal</b> · AI-native</span>
+                <span class="cmd__when">Yesterday</span>
+              </div>
+              <div class="cmd__title">A competitor just unbundled the workflow you're about to invest in.</div>
+              <div class="cmd__tags">
+                <span class="stag"><span class="stag__dot"></span>Market Intelligence<span class="stag__conf stag__conf--med">Medium confidence</span></span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CATEGORY BAND ============================== -->
+<section class="catband" aria-label="What Zavari is">
+  <div class="wrap">
+    <svg class="catband__mark" width="34" height="26" viewBox="0 0 34 26" fill="none" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+      <line x1="3" y1="4" x2="30" y2="13"></line><line x1="3" y1="13" x2="30" y2="13"></line><line x1="3" y1="22" x2="30" y2="13"></line>
+      <circle cx="30" cy="13" r="2" fill="#00D4FF" stroke="none"></circle>
+    </svg>
+    <p>Zavari runs <b>beneath your existing stack and coordinates it</b> — triangulating qualitative research, product signal, and market intelligence into one strategic intelligence layer, where every conclusion stays traceable to its sources.</p>
+  </div>
+</section>
+
+<!-- ============================== PROOF STRIP ============================== -->
+<section class="proof section-pad" aria-label="Proof">
+  <div class="wrap">
+    <div class="proof__head" data-reveal>
+      <h3>Built by a practitioner who ran this play by hand — for years.</h3>
+      <span class="proof__attr">Founder outcomes · Virtuoso, AI agent workflows</span>
+    </div>
+    <div class="proof__row">
+      <div class="stat" data-reveal>
+        <div class="stat__num">125<span class="unit">%</span></div>
+        <div class="stat__label">margin growth driven by AI agent workflows</div>
+      </div>
+      <div class="stat" data-reveal>
+        <div class="stat__num">35<span class="unit">%</span></div>
+        <div class="stat__label">increase in customer lifetime value</div>
+      </div>
+      <div class="stat" data-reveal>
+        <div class="stat__num">3<span class="unit">×</span></div>
+        <div class="stat__label">faster planning cycles</div>
+      </div>
+    </div>
+
+    <div class="proof__div" aria-hidden="true"></div>
+
+    <div class="proof__gap" data-reveal>
+      <div class="proof__gap-stats">
+        <div class="stat">
+          <div class="stat__num">87<span class="unit">%</span></div>
+          <div class="stat__label">say effective product<br>development is critical</div>
+        </div>
+        <div class="stat">
+          <div class="stat__num">34<span class="unit">%</span></div>
+          <div class="stat__label">say they're actually<br>effective at it</div>
+        </div>
+      </div>
+      <div>
+        <p>The gap between knowing product strategy matters and executing it coherently is the widest it has ever been. Zavari closes it where the work already lives — <b>in the connections between your tools.</b></p>
+        <p class="proof__attr" style="margin-top:16px;">Source: Miro-commissioned Forrester / HBR research, September 2025</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== HOW IT WORKS / ECOSYSTEM ============================== -->
+<section class="how section-pad" id="how" data-screen-label="How it works">
+  <div class="wrap">
+    <div class="shead" data-reveal>
+      <span class="eyebrow">How it works</span>
+      <h2>An ecosystem, not a dashboard. The intelligence lives in the connections.</h2>
+      <p>Lightweight owned tools form the foundation. Bridges between them are where coherence is computed. The proactive intelligence layer sits on top — and reaches across everything you've connected.</p>
+    </div>
+
+    <div class="beats">
+      <div class="beat" data-reveal>
+        <span class="beat__top" aria-hidden="true"></span>
+        <span class="beat__n">01 — Foundation</span>
+        <h3>Start with Zavari's own tools</h3>
+        <p>Strategy, Planning, Research, and Quant — a capable middle: lighter than Jira Align, more structured than a doc. Useful standalone, and natively legible to the engine.</p>
+      </div>
+      <div class="beat" data-reveal>
+        <span class="beat__top" aria-hidden="true"></span>
+        <span class="beat__n">02 — Bridges</span>
+        <h3>Coherence is computed in between</h3>
+        <p>A bridge answers one question: does this initiative ladder to that objective; does this feature trace to a real insight? Connect the rest of your stack and the bridges multiply.</p>
+      </div>
+      <div class="beat" data-reveal>
+        <span class="beat__top" aria-hidden="true"></span>
+        <span class="beat__n">03 — Intelligence</span>
+        <h3>Proactive briefs, on top</h3>
+        <p>The Triangulation Engine reasons across it all — surfacing opportunities, drafting Strategic Opportunity Briefs, and reading coherence before you'd have known to look.</p>
+      </div>
+    </div>
+
+    <!-- ecosystem diagram -->
+    <div class="eco" data-reveal aria-label="Zavari ecosystem map">
+      <div class="eco__head">
+        <h4>The ecosystem on one surface</h4>
+        <div class="eco__legend">
+          <span class="pill pill--owned"><span class="pill__dot"></span>Owned</span>
+          <span class="pill pill--ai"><span class="pill__dot"></span>AI-native</span>
+          <span class="pill pill--byo"><span class="pill__dot"></span>Bring your own</span>
+        </div>
+      </div>
+      <div class="eco__body">
+        <div class="eco__layer-label">Intelligence layer · owned outputs</div>
+        <div class="eco__intel">
+          <div class="eco__intel-top">
+            <svg width="26" height="20" viewBox="0 0 26 20" fill="none" stroke="#00D4FF" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+              <line x1="2" y1="3" x2="23" y2="10"></line><line x1="2" y1="10" x2="23" y2="10"></line><line x1="2" y1="17" x2="23" y2="10"></line>
+              <circle cx="23" cy="10" r="1.7" fill="#00D4FF" stroke="none"></circle>
+            </svg>
+            <span class="lbl">Triangulation Engine</span>
+          </div>
+          <div class="eco__chips">
+            <span class="eco__chip eco__chip--lead">Strategic Command Layer</span>
+            <span class="eco__chip eco__chip--lead">Strategic Opportunity Briefs</span>
+            <span class="eco__chip">Coherence map</span>
+            <span class="eco__chip">Decision Record</span>
+          </div>
+        </div>
+
+        <div class="eco__bridges" aria-label="Bridges where coherence is computed">
+          <span class="eco__bridge">
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="#0099FF" stroke-width="1.4" aria-hidden="true"><path d="M1 6h14M11 2l4 4-4 4"></path></svg>
+            ROI / investment-weighing · Strategy ↔ Planning
+          </span>
+          <span class="eco__bridge">
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="#0099FF" stroke-width="1.4" aria-hidden="true"><path d="M1 6h14M11 2l4 4-4 4"></path></svg>
+            Continuous feedback / VoC · Research ↔ Planning
+          </span>
+        </div>
+
+        <div class="eco__layer-label">Tools · the nodes</div>
+        <div class="eco__nodes">
+          <div class="node node--mvp">
+            <span class="node__tag">MVP wedge</span>
+            <div class="node__top"><span class="node__dot node__dot--owned"></span><span class="node__name">Strategy / OKR</span></div>
+            <div class="node__role">North star &amp; objectives — the canonical strategic format.</div>
+          </div>
+          <div class="node node--mvp">
+            <span class="node__tag">MVP wedge</span>
+            <div class="node__top"><span class="node__dot node__dot--owned"></span><span class="node__name">Planning / Roadmap</span></div>
+            <div class="node__role">Initiatives &amp; specs — the sheet-to-Jira middle.</div>
+          </div>
+          <div class="node node--mvp">
+            <span class="node__tag">MVP wedge</span>
+            <div class="node__top"><span class="node__dot node__dot--owned"></span><span class="node__name">Research</span></div>
+            <div class="node__role">Qual insight + survey-quant, captured effortlessly.</div>
+          </div>
+          <div class="node node--mvp">
+            <span class="node__tag">MVP wedge</span>
+            <div class="node__top"><span class="node__dot node__dot--owned"></span><span class="node__name">Quant</span></div>
+            <div class="node__role">Thin product-metric capture, wired to strategy.</div>
+          </div>
+          <div class="node">
+            <div class="node__top"><span class="node__dot node__dot--owned"></span><span class="node__name">Doc</span></div>
+            <div class="node__role">Owned long-form, legible to the engine.</div>
+          </div>
+          <div class="node">
+            <div class="node__top"><span class="node__dot node__dot--ai"></span><span class="node__name">Market Intelligence</span></div>
+            <div class="node__role">Synthesized from the open web, or imported.</div>
+          </div>
+          <div class="node">
+            <div class="node__top"><span class="node__dot node__dot--byo"></span><span class="node__name">Analytics &amp; Delivery</span></div>
+            <div class="node__role">Amplitude, Jira, Linear — connect when ready.</div>
+          </div>
+          <div class="node">
+            <div class="node__top"><span class="node__dot node__dot--byo"></span><span class="node__name">Docs</span></div>
+            <div class="node__role">Confluence, Notion — expansion layer.</div>
+          </div>
+        </div>
+
+        <div class="eco__foot"><span class="sw" aria-hidden="true"></span>Highlighted nodes ship first — the buildable MVP, legible inside the full vision.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== MARQUEE — Strategic Opportunity Brief ============================== -->
+<section class="marquee section-pad" id="product" data-screen-label="The marquee output">
+  <div class="marquee__bg" aria-hidden="true">
+    <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1200 700" fill="none">
+      <g stroke="#1B4987" stroke-width="1" opacity="0.45">
+        <line x1="120" y1="80" x2="240" y2="350"></line><line x1="40" y1="360" x2="240" y2="350"></line><line x1="150" y1="640" x2="240" y2="350"></line>
+        <line x1="1080" y1="80" x2="960" y2="350"></line><line x1="1160" y1="360" x2="960" y2="350"></line><line x1="1050" y1="640" x2="960" y2="350"></line>
+      </g>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="shead shead--center" data-reveal>
+      <span class="eyebrow">The marquee output</span>
+      <h2>A brief you'd stake a decision on — generated before you asked.</h2>
+      <p>The differentiation isn't raw synthesis. It's the packaging: every finding ranked, sourced, confidence-rated, and read for coherence against the north star. Intelligence, not a report.</p>
+    </div>
+
+    <div class="brief" data-reveal>
+      <div class="brief__top">
+        <div>
+          <div class="brief__meta">
+            <span class="brief__badge">Strategic Opportunity Brief</span>
+            <span class="brief__auto">Auto-generated · 06:14 · reviewed by 0 people</span>
+          </div>
+          <div class="brief__q">Why is self-serve activation slipping while sales-led activation holds?</div>
+        </div>
+        <div class="brief__flagwrap">
+          <div class="cflag">
+            <svg class="cflag__mark" viewBox="0 0 24 22" fill="none" stroke="#00D4FF" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+              <line x1="2" y1="4" x2="22" y2="11"></line><line x1="2" y1="11" x2="22" y2="11"></line><line x1="2" y1="18" x2="22" y2="11"></line>
+              <circle cx="22" cy="11" r="1.6" fill="#00D4FF" stroke="none"></circle>
+            </svg>
+            <span style="text-align:left;">
+              <span class="cflag__label">Coherent</span>
+              <span class="cflag__detail" style="display:block;">Ladders to: Activation north star</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="brief__body">
+        <div class="brief__section">
+          <div class="brief__label">Findings · ranked by decision weight</div>
+
+          <div class="finding">
+            <div class="finding__rank">01</div>
+            <div class="finding__body">
+              <p class="finding__text"><b>The drop isn't onboarding — it's an expectation set upstream.</b> Self-serve users who churn in week one arrived from a pricing page that implies a workflow the product doesn't lead with. Sales-led users are briefed around it, so their activation holds.</p>
+              <div class="finding__tags">
+                <span class="stag stag--fp"><span class="stag__dot"></span>Zavari Research<span class="stag__conf stag__conf--high">High confidence</span></span>
+                <span class="stag"><span class="stag__dot"></span>Amplitude<span class="stag__count">·1,240</span></span>
+                <span class="stag"><span class="stag__dot"></span>Dovetail<span class="stag__count">·38</span></span>
+              </div>
+              <div class="finding__so">
+                <span class="lbl">Second-order finding</span>
+                <p>Fixing onboarding alone would mask the mismatch and depress paid conversion — the pricing page is doing real qualifying work for the sales motion.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="finding">
+            <div class="finding__rank">02</div>
+            <div class="finding__body">
+              <p class="finding__text"><b>Two roadmap bets now pull against the retention north star.</b> The Q3 collaboration push and the new export flow both optimize for breadth of use, while activation depends on getting one workflow to value fast.</p>
+              <div class="finding__tags">
+                <span class="stag stag--fp"><span class="stag__dot"></span>Zavari Planning</span>
+                <span class="stag"><span class="stag__dot"></span>Linear<span class="stag__count">·17</span></span>
+                <span class="cflag" style="margin-left:4px;">
+                  <svg class="cflag__mark" style="width:26px;height:20px;" viewBox="0 0 24 22" fill="none" stroke="#0099FF" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+                    <line x1="2" y1="4" x2="22" y2="8"></line><line x1="2" y1="11" x2="22" y2="11"></line><line x1="2" y1="18" x2="22" y2="14"></line>
+                    <circle cx="22" cy="11" r="1.6" fill="#0099FF" stroke="none" opacity="0.5"></circle>
+                  </svg>
+                  <span><span class="cflag__label" style="font-size:13px;">Drifting</span></span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="finding">
+            <div class="finding__rank">03</div>
+            <div class="finding__body">
+              <p class="finding__text"><b>A competitor just unbundled the workflow you were about to invest in.</b> Market timing now favors leading with the activation workflow rather than the breadth play — a window, not a threat.</p>
+              <div class="finding__tags">
+                <span class="stag"><span class="stag__dot"></span>Market Intelligence<span class="stag__conf stag__conf--med">Medium confidence</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="brief__rec">
+        <span class="tri-badge" aria-hidden="true">
+          <svg width="20" height="15" viewBox="0 0 24 18" fill="none" stroke="#00D4FF" stroke-width="1.7" stroke-linecap="round">
+            <line x1="2" y1="3" x2="22" y2="9"></line><line x1="2" y1="9" x2="22" y2="9"></line><line x1="2" y1="15" x2="22" y2="9"></line>
+            <circle cx="22" cy="9" r="1.6" fill="#00D4FF" stroke="none"></circle>
+          </svg>
+        </span>
+        <div>
+          <h5>Recommendation</h5>
+          <p>Re-sequence the pricing page to lead with the activation workflow before touching onboarding — and re-weigh the two drifting Q3 bets against retention. One change, three problems closed.</p>
+        </div>
+      </div>
+
+      <div class="brief__foot">
+        <span class="trace">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#808A9B" stroke-width="1.4" aria-hidden="true"><circle cx="8" cy="8" r="6"></circle><path d="M8 5v3l2 2"></path></svg>
+          7 sources · 1,333 signals triangulated · full lineage on every claim
+        </span>
+        <a href="concepts/zavari-concepts.html" style="font-family:var(--font-sans);font-weight:600;font-size:13px;">Open the live concept →</a>
+      </div>
+    </div>
+    <p class="brief__caption">A concept surface from the Zavari product set — representative data.</p>
+  </div>
+</section>
+
+<!-- ============================== HONEST SECTION ============================== -->
+<section class="honest section-pad" aria-label="What's real today">
+  <div class="wrap">
+    <div class="honest__grid">
+      <div class="shead" style="margin-bottom:0;" data-reveal>
+        <span class="eyebrow">Where we are</span>
+        <h2>Honest about the stage.</h2>
+        <p>A sophisticated buyer trusts the page more for saying this plainly. Here's exactly what's real today.</p>
+      </div>
+      <div class="honest__list" data-reveal>
+        <div class="honest__item">
+          <svg class="mk" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="rgba(0,212,255,.12)"></circle><path d="M7 11l3 3 5-6" stroke="#0A1F44" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <div>
+            <h4>The design-partner program is active.</h4>
+            <p>We're working directly with a small set of product leaders to build Zavari around real decisions, not hypotheticals.</p>
+          </div>
+        </div>
+        <div class="honest__item">
+          <svg class="mk" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="rgba(0,153,255,.12)"></circle><path d="M11 6v5l3 2" stroke="#0A1F44" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <div>
+            <h4>Customer proof points are being earned.</h4>
+            <p>The outcomes on this page are the founder's own, from running this synthesis by hand. Design-partner results will be published as they're proven — not before.</p>
+          </div>
+        </div>
+        <div class="honest__item">
+          <svg class="mk" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="10" fill="rgba(128,138,155,.14)"></circle><path d="M11 6.5v6M11 15h.01" stroke="#0A1F44" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <div>
+            <h4>Showing the vision isn't claiming it's all built.</h4>
+            <p>The full ecosystem is the direction. The MVP wedge — Strategy, Planning, Research, Quant — is what ships first, and it's drawn clearly inside the larger picture.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TESTIMONIAL ============================== -->
+<section class="testi section-pad" aria-label="Practitioner perspective">
+  <div class="wrap">
+    <div class="testi__grid">
+      <div data-reveal>
+        <span class="eyebrow">Practitioner perspective</span>
+        <blockquote class="testi__quote" style="margin-top:20px;">
+          “I led product organizations to <b>125% margin growth</b> and a <b>35% increase in lifetime value</b> by triangulating research, signal, and market by hand — across spreadsheets and instinct. <b>Zavari is the institutional version of that work</b> — so the next leader doesn't have to hold it all in their head.”
+        </blockquote>
+        <div class="testi__by">
+          <span class="testi__avatar" aria-hidden="true"><span>Z</span></span>
+          <div>
+            <div class="name">Founder, Zavari</div>
+            <div class="role">Former product leader · Virtuoso, AI agent workflows</div>
+          </div>
+        </div>
+      </div>
+      <aside class="testi__placeholder" data-reveal>
+        <div class="tag">Design-partner quote — reserved</div>
+        <div class="ghost-line" style="width:100%;"></div>
+        <div class="ghost-line" style="width:92%;"></div>
+        <div class="ghost-line" style="width:78%;"></div>
+        <p>This space is held for a design partner's words. We'll publish a real one once a real decision has been made with Zavari — and not a moment sooner.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FOOTER CTA ============================== -->
+<section class="footcta" id="access" data-screen-label="Early access">
+  <div class="footcta__bg" aria-hidden="true">
+    <svg width="100%" height="100%" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1200 540" fill="none">
+      <g stroke="#1B4987" stroke-width="1" opacity="0.5">
+        <line x1="120" y1="80" x2="600" y2="280"></line><line x1="40" y1="300" x2="600" y2="280"></line><line x1="180" y1="500" x2="600" y2="280"></line>
+      </g>
+      <g stroke="#00D4FF" stroke-width="1.3" opacity="0.3">
+        <line x1="1080" y1="90" x2="600" y2="280"></line><line x1="1160" y1="320" x2="600" y2="280"></line><line x1="1020" y1="500" x2="600" y2="280"></line>
+      </g>
+      <circle cx="600" cy="280" r="3.2" fill="#00D4FF" opacity="0.8"></circle>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="footcta__head" data-reveal>
+      <span class="eyebrow">Early access</span>
+      <h2>Two ways in. Both start a conversation, not a signup.</h2>
+      <p class="footcta__sub">Begin with Zavari's own tools — useful on day one, already wired to the intelligence. Turn on the rest of your stack when you're ready.</p>
+    </div>
+    <div class="footcta__paths" data-reveal>
+      <div class="path path--primary">
+        <div class="path__k">Start here</div>
+        <h3>Start with Zavari's tools</h3>
+        <p>Strategy, Planning, Research, and Quant — low-commitment, useful standalone, and proactively working from the first week.</p>
+        <a class="btn btn--primary" href="mailto:earlyaccess@zavari.com?subject=Zavari%20early%20access%20%E2%80%94%20start%20with%20your%20tools">Request early access <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+      <div class="path path--byo">
+        <div class="path__k">When you're ready</div>
+        <h3>Connect your stack</h3>
+        <p>Bring Amplitude, Jira, Linear, Confluence, Notion. The more you connect, the more the intelligence has to reason across.</p>
+        <a class="btn btn--ghost-light" href="mailto:earlyaccess@zavari.com?subject=Zavari%20%E2%80%94%20let%27s%20talk%20about%20our%20stack">Talk to us about your stack</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="footer">
+  <div class="wrap">
+    <a class="footer__logo" href="#top" aria-label="Zavari — home">
+      <img src="assets/zavari-logo-horizontal-dkbg.svg" alt="Zavari">
+    </a>
+    <nav class="footer__links" aria-label="Footer">
+      <a href="#how">How it works</a>
+      <a href="#product">The product</a>
+      <a href="brand.html">Brand</a>
+      <a href="concepts/zavari-concepts.html">Concept</a>
+      <a href="#access">Early access</a>
+    </nav>
+    <div class="footer__copy">Zavari · The strategic intelligence OS for product organizations · Concept-stage, building in public.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // nav border on scroll
+  var nav = document.getElementById('nav');
+  function onScroll(){ if(nav){ nav.classList.toggle('is-scrolled', window.scrollY > 8); } }
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // reveal on scroll (progressive enhancement — content NEVER stays hidden)
+  var els = [].slice.call(document.querySelectorAll('[data-reveal]'));
+  if(!els.length){ return; }
+  function reveal(el){ el.classList.add('is-in'); }
+  // If IO unavailable, just show everything.
+  if(!('IntersectionObserver' in window)){ els.forEach(reveal); return; }
+
+  els.forEach(function(el){ el.classList.add('reveal-armed'); });
+
+  // Anything already in (or near) the viewport reveals immediately — no wait on IO.
+  function revealVisible(){
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    els.forEach(function(el){
+      if(el.classList.contains('is-in')) return;
+      var r = el.getBoundingClientRect();
+      if(r.top < vh * 0.94 && r.bottom > 0){ reveal(el); }
+    });
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ reveal(e.target); io.unobserve(e.target); }
+    });
+  }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+  els.forEach(function(el){ io.observe(el); });
+
+  revealVisible();
+  window.addEventListener('scroll', revealVisible, {passive:true});
+  // Safety net: if anything is still hidden shortly after load, show it.
+  setTimeout(function(){ els.forEach(reveal); }, 1400);
+})();
+</script>
+</body>
+</html>
