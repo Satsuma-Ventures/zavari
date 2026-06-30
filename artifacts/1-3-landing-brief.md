@@ -16,9 +16,9 @@ This is the front door of the public Track 1 repo. It sits alongside the concept
 
 ---
 
-## ⚠️ Framing note — use the *current* concept direction, not the older positioning doc
+## ⚠️ Framing note — blend the frames; everything you need is in-project
 
-`context/zavari-positioning-messaging.md` (March 2026) is rich and authoritative on **voice, audience, and proof points** — mine it for those. Its dominant frame ("strategic intelligence **OS**," "**Triangulation Engine**," "synthesis layer," coherence-as-safeguard) predates the Phase 3 concept direction. The landing **blends the two**: it *leads* with the reconciled Phase 3 v2.0 direction, but keeps the **"strategic intelligence OS" category line at real prominence** — it's the sharpest one-liner for this buyer.
+Everything you need is in this brief or already in this project — **you do not have the venture's internal repo docs** (the `context/` positioning, philosophy, and business-plan files are not in this project, so don't try to reference them). The voice, audience, proof points, and naming rules the page needs are inlined below. The venture's internal docs lean on a frame ("strategic intelligence **OS**," "**Triangulation Engine**," "synthesis layer," coherence-as-safeguard) that predates the Phase 3 concept direction. The landing **blends two frames**: it *leads* with the reconciled Phase 3 v2.0 direction, but keeps the **"strategic intelligence OS" category line at real prominence** — it's the sharpest one-liner for this buyer.
 
 **Lead with (the emotional/experiential frame):**
 - **Intelligence, not insurance.** Proactive and generative throughout. Every surface should feel like *"Zavari made me see something I couldn't,"* never *"Zavari caught my mistake."* Coherence is shown as **insight**, never as an alarm or a safety net.
@@ -55,7 +55,7 @@ Authoritative · proactive · precise · calm-confident · peer-to-peer · genui
 
 - **Linear** — restraint, precision, confident typographic hierarchy, product-shots-as-proof.
 - **Stripe (early product pages)** — authoritative, technical credibility without coldness, generous structure.
-- **The Zavari concept screens themselves** (`docs/concepts/`) — the landing should feel like the same product, same world. Pull real product surfaces (the Strategic Opportunity Brief, the coherence map, the command layer) into the page as the hero/section visuals rather than inventing new abstractions.
+- **The Zavari concept screens themselves** — in this project at `concepts/` (source: `concepts/act1–5.jsx`, `shell.jsx`, `kit.jsx`, `data.jsx`; compiled: `docs/concepts/zavari-concepts.html`). The landing should feel like the same product, same world. Pull real product surfaces (the Strategic Opportunity Brief, the coherence map, the command layer) into the page as the hero/section visuals rather than inventing new abstractions. The concept brief that drove those screens is in this project at `uploads/1-3-concept-brief.md` if you want the fuller narrative.
 
 ---
 
@@ -73,7 +73,7 @@ Lead with the proactive payoff, and seat the OS category line right beside it:
 - **Subhead:** names the two-pronged reality (start with our tools, connect your stack).
 - One primary CTA + one secondary ("See the concept" → links to `concepts/zavari-concepts.html`).
 - Visual: a real Strategic Command Layer / Brief surface from the concept set, not an abstract illustration.
-*Candidate payoff line (from positioning, on-frame):* "The signal nobody thought to ask for — surfaced before it becomes a problem." Founder/Claude Design may sharpen.
+*Candidate payoff line (on-frame):* "The signal nobody thought to ask for — surfaced before it becomes a problem." Founder/Claude Design may sharpen.
 
 *(Optional category band just below the hero: the one-line OS framing expanded — "runs beneath your existing stack and coordinates it" — if the hero alone can't carry both the payoff and the category without crowding.)*
 
@@ -105,10 +105,22 @@ Plus logo, minimal footer links (brand page, concept). The owned path should fee
 
 ## Design anchors
 
-- **Design system:** Zavari Design System (Project 1) — established brand: IBM Plex, Navy / Cyan / Azure. Honor locked brand assets (logos as-is; palette + semantic roles). Source tokens from `design-system/colors_and_type.css` and `DESIGN.md`; reuse `SourceTag` (owned sources = cyan-dot, first-class peers), `CoherenceFlag`, Brief layout, `StatCallout` for the proof numbers.
+You are generating inside the **Zavari Design System** project — these are all available to you here:
+- **Tokens & type:** `colors_and_type.css`, `fonts.css`, `styles.css`, `tokens/components.css`, and the derived `DESIGN.md`. Source all color/type/spacing from these — never hardcode hex. Established brand: IBM Plex, Navy / Cyan / Azure.
+- **Components to reuse:** `SourceTag` (owned sources = cyan-dot, first-class peers), `CoherenceFlag`, `StatCallout` (use for the proof numbers), `Card`, `Button`, `Badge`, `Input` (under `components/`).
+- **Brand assets:** `assets/` — `zavari-logo-ltbg.svg` / `-horizontal-ltbg.svg` (light bg), `-dkbg` variants (navy bg), `zavari-icon.svg` (favicon, small sizes). Use as-is; never redraw/recolor/distort. `brand.html` shows the full system.
 - **Stat figures = Serif** (editorial), per the Phase 3 reconciliation — overrides the brand guide's Mono for stat display, deliberately.
 - **Viewport:** Desktop-first, fully responsive to mobile. Visitors arrive on laptops in a high-focus context, but the page must hold up shared on a phone.
-- **Voice:** practitioner, not vendor. Precise over promotional. Outcomes over features. Multiplier over efficiency. (See positioning doc "Tone and Voice.")
+
+### Voice (inlined — this is the rule, no external doc needed)
+- **Practitioner, not vendor** — peer-to-peer, the way a senior product leader talks to another about a problem they both know from the inside.
+- **Precise, not promotional** — "defensible," "auditable," "triangulated," "institutional," not "breakthrough," "transformative," "revolutionary." The audience dismisses superlatives; precision signals credibility.
+- **Outcomes over features** — every capability framed by what it lets the org do or avoid, not what it is.
+- **Multiplier over efficiency** — anchor to better decisions / compounding intelligence / institutional memory, not hours saved.
+- **Honest about what doesn't exist yet** — the design-partner program is active; customer proof points are being earned. Acknowledging the stage builds credibility with a sophisticated buyer.
+
+### Naming rules (apply exactly)
+Always **Zavari** (never "Zavari OS / platform / system"). Capitalize named capabilities when used: **Strategic Opportunity Brief**, **Decision Record**, **Strategic Instinct**, **Triangulation Engine**. "OS" / "operating system" is fine as the *category metaphor* (the hero category line) but avoid it in literal product-feature descriptions.
 
 ## docs/ deployment conventions (must follow exactly)
 
