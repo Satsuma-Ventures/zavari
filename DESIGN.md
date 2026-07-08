@@ -36,10 +36,10 @@
   --color-surface-sunken: var(--zv-cool-gray-soft);
   --color-ink:          var(--zv-document-black); /* body text */
   --color-heading:      var(--zv-navy);           /* headings, structure */
-  --color-secondary:    var(--zv-accent-gray);    /* captions, meta */
+  --color-secondary:    var(--zv-neutral-600);    /* captions, meta — AA ~5.3:1 on soft-white */
   --color-border:       var(--zv-cool-gray);      /* dividers, borders */
-  --color-link:         var(--zv-azure);          /* links */
-  --color-link-hover:   #007ACC;
+  --color-link:         var(--zv-azure-700);      /* links — AA ~6:1 on soft-white */
+  --color-link-hover:   var(--zv-azure-800);
   --color-accent:       var(--zv-cyan);           /* graphic accent only */
   --color-focus:        var(--zv-azure);          /* focus ring */
   /* dark-surface: --color-bg-dark=navy, --color-ink-dark=white, --color-secondary-dark=cool-gray */
@@ -48,6 +48,17 @@
   --focus-ring:         0 0 0 2px var(--zv-soft-white), 0 0 0 4px var(--zv-azure);
 }
 ```
+
+### Shade scales (50–950)
+
+Full `--zv-navy-*`, `--zv-cyan-*`, `--zv-azure-*`, and `--zv-neutral-*` scales (50 lightest → 950 darkest) live in [`design-system/colors_and_type.css`](design-system/colors_and_type.css) — modeled on the studio's Grove/Satsuma/Sage scales. Each brand color sits at its natural step: **navy-900, cyan-400, azure-500, neutral-500** (= `accent-gray`).
+
+**Accessibility rule (AA on `--zv-soft-white`):** the 400/500-level brand blues fail contrast as text on light. Any accent used as **text on a light surface must use a dark step (≥600)**:
+- `--color-secondary` → **neutral-600 `#5D6675`** (~5.3:1) — captions, meta, eyebrows, mono labels.
+- `--color-link` → **azure-700 `#0A5FA0`** (~6:1); hover azure-800. Never `--zv-azure` (500, ~3.5:1) as text.
+- Accent number/label treatments (step markers, ranks) use **`--color-heading` (navy)**, not azure.
+- `--zv-cyan` stays **graphic-only** (borders, dots, on-dark accents); never type on light (~1.8:1).
+- On **dark surfaces** the bright brand values (cyan-400, azure-500) are fine and preferred.
 
 ## Typography
 
