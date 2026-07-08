@@ -26,15 +26,8 @@ These are product surfaces, so every surfaced item must read like real intellige
 ### 3. Customer-facing language only — no internal/GTM framing, no shorthand
 Cut entirely: **MVP wedge**, "buildable MVP," "ships first," named-architecture bridges ("ROI / investment-weighing," "Continuous feedback / VoC," "Strategy ↔ Planning"). No abbreviations — spell everything out (no "Doc"/"Docs"/"Quant"; use "Documents," "Product metrics"). Reframe the ownership taxonomy as **"Zavari's tools / Market intelligence / Your connected stack."** Strip jargon: *activation, north star (except as a literal OKR field), self-serve/sales-led, VoC, ladder/laddering, second-order* (say "knock-on" or just show it).
 
-### 4. Moderate trim — fewer words, and image placeholders for softer imagery
-Tighten copy hard; the screens read as busy and prose-heavy. Reduce caption/paragraph volume; let the product surfaces and data carry the story. **Do not invent marketing graphics.** Instead:
-- The **product surfaces themselves** (the Command Layer, Brief, maps) are the real UI — keep those.
-- Where **softer / human / editorial imagery** would warm a screen and make it feel less robotic (e.g. a person, an ambient photo, a texture), insert a **clearly-marked placeholder** — a dashed-border box with a short caption describing the suggested image — for the founder to fill later. Convention:
-  ```html
-  <!-- IMAGE PLACEHOLDER — suggestion: "[what to put here]" — founder to supply -->
-  <div class="img-placeholder" role="img" aria-label="[suggestion]">[✎ Image: [short suggestion]]</div>
-  ```
-  Render it visibly (dashed border, muted label) so it's obvious where imagery goes. Use these sparingly and tastefully — 1 per screen at most, only where it genuinely helps.
+### 4. Moderate trim — fewer words, let the product carry it
+Tighten copy hard; the screens read as busy and prose-heavy. Reduce caption/paragraph volume and let the real **product surfaces and data visualization** carry the story. "More graphics" here means richer, clearer product UI and data — charts, maps, the Brief and Command Layer surfaces — **not** photography. These are **logged-in product screens**: no editorial / stock / human imagery, and **no image placeholders** (that belongs on the marketing homepage, not the product UI).
 
 ### 5. Accessibility — use the corrected tokens (now in `colors_and_type.css` / `DESIGN.md`)
 The design system was fixed since these screens were made. Regenerate from the updated tokens and follow these rules:
