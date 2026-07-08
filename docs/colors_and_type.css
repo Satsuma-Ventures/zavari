@@ -28,6 +28,60 @@
   --zv-navy-080:        rgba(10, 31, 68, 0.08);  /* card shadow tint */
 
   /* --------------------------------------------------------------------------
+     2b. SHADE SCALES  (50 lightest → 950 darkest — Tailwind: theme.colors.<name>.*)
+     Each brand color sits at its natural step: navy-900, cyan-400, azure-500,
+     neutral-500 (= accent-gray). RULE: any accent used as TEXT on a light
+     surface must use a dark step (≥600) — the 400/500 brand values fail AA there.
+     -------------------------------------------------------------------------- */
+  --zv-navy-50:  #EEF1F7;
+  --zv-navy-100: #D6DEEC;
+  --zv-navy-200: #ADBAD6;
+  --zv-navy-300: #7E90B7;
+  --zv-navy-400: #556A96;
+  --zv-navy-500: #35507F;
+  --zv-navy-600: #223A5F;
+  --zv-navy-700: #16304C;
+  --zv-navy-800: #0F2649;
+  --zv-navy-900: #0A1F44;   /* = --zv-navy (brand) */
+  --zv-navy-950: #07101E;   /* = --zv-navy-deep */
+
+  --zv-cyan-50:  #E6FBFF;
+  --zv-cyan-100: #C2F6FF;
+  --zv-cyan-200: #8AEDFF;
+  --zv-cyan-300: #4CE1FF;
+  --zv-cyan-400: #00D4FF;   /* = --zv-cyan (brand) */
+  --zv-cyan-500: #00AAD1;
+  --zv-cyan-600: #0086A6;
+  --zv-cyan-700: #036A85;   /* AA-safe cyan for text on light, if ever needed */
+  --zv-cyan-800: #0A5468;
+  --zv-cyan-900: #0C3D4C;
+  --zv-cyan-950: #06232C;
+
+  --zv-azure-50:  #EBF5FF;
+  --zv-azure-100: #D4EBFF;
+  --zv-azure-200: #A8D6FF;
+  --zv-azure-300: #74BCFF;
+  --zv-azure-400: #38A2FF;
+  --zv-azure-500: #0099FF;  /* = --zv-azure (brand) */
+  --zv-azure-600: #007ACC;
+  --zv-azure-700: #0A5FA0;  /* links on light — AA ~6:1 */
+  --zv-azure-800: #0B497A;
+  --zv-azure-900: #0A3557;
+  --zv-azure-950: #072033;
+
+  --zv-neutral-50:  #F6F7F9;
+  --zv-neutral-100: #EDF0F4;
+  --zv-neutral-200: #E0E6ED;  /* = --zv-cool-gray */
+  --zv-neutral-300: #C4CCD8;
+  --zv-neutral-400: #9BA5B4;
+  --zv-neutral-500: #808A9B;  /* = --zv-accent-gray */
+  --zv-neutral-600: #5D6675;  /* secondary text on light — AA ~5.3:1 */
+  --zv-neutral-700: #464E5C;
+  --zv-neutral-800: #333A45;
+  --zv-neutral-900: #232932;
+  --zv-neutral-950: #141920;
+
+  /* --------------------------------------------------------------------------
      3. SEMANTIC / FUNCTIONAL  (status only — NOT brand colors)
      Tailwind: theme.colors.status.*
      -------------------------------------------------------------------------- */
@@ -51,10 +105,10 @@
   --color-surface-sunken: var(--zv-cool-gray-soft);
   --color-ink:          var(--zv-document-black);/* body text */
   --color-heading:      var(--zv-navy);          /* headings, structure */
-  --color-secondary:    var(--zv-accent-gray);   /* captions, meta */
+  --color-secondary:    var(--zv-neutral-600);   /* captions, meta — AA ~5.3:1 on soft-white */
   --color-border:       var(--zv-cool-gray);     /* dividers, borders */
-  --color-link:         var(--zv-azure);         /* links, interactive */
-  --color-link-hover:   #007ACC;                 /* azure darkened */
+  --color-link:         var(--zv-azure-700);     /* links, interactive — AA ~6:1 on soft-white */
+  --color-link-hover:   var(--zv-azure-800);     /* azure-800 */
   --color-accent:       var(--zv-cyan);          /* graphic accent only */
 
   /* dark-surface aliases */
