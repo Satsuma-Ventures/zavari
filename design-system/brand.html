@@ -86,6 +86,15 @@
   .swatch .hx { font-family: var(--font-mono); font-size: 12px; color: var(--color-secondary); margin-top: 2px; }
   .swatch .rl { font-size: 12px; color: var(--color-secondary); margin-top: 8px; line-height: 1.45; }
   .swatch.small .chip { height: 60px; }
+  .scale-block { margin-top: 22px; }
+  .scale-block .snm { font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--color-heading); margin-bottom: 9px; }
+  .scale-row2 { display: grid; grid-template-columns: repeat(11, 1fr); gap: 6px; }
+  .scell .bar { height: 54px; border-radius: 4px; border: 1px solid var(--color-border); }
+  .scell.anchor .bar { box-shadow: 0 0 0 2px var(--zv-navy); }
+  .scell .st { font-family: var(--font-mono); font-size: 10px; color: var(--color-secondary); margin-top: 6px; }
+  .scell.anchor .st { color: var(--color-heading); font-weight: 700; }
+  .scell .sx { font-family: var(--font-mono); font-size: 9px; color: var(--color-secondary); letter-spacing: -0.02em; }
+  @media (max-width: 640px) { .scale-row2 { grid-template-columns: repeat(6, 1fr); } }
 
   .color-note { margin-top: 28px; padding: 16px 18px; border-left: 4px solid var(--zv-warning); background: var(--zv-warning-tint); border-radius: 0 4px 4px 0; font-size: 14px; line-height: 1.55; color: var(--color-ink); }
   .color-note strong { color: var(--color-heading); }
@@ -338,6 +347,77 @@
       <div class="swatch small"><div class="chip" style="background:#D69E2E"></div><div class="meta"><div class="nm">Warning</div><div class="hx">#D69E2E</div></div></div>
       <div class="swatch small"><div class="chip" style="background:#E53E3E"></div><div class="meta"><div class="nm">Error</div><div class="hx">#E53E3E</div></div></div>
       <div class="swatch small"><div class="chip" style="background:#0099FF"></div><div class="meta"><div class="nm">Info</div><div class="hx">= Azure</div></div></div>
+    </div>
+
+    <div class="subhead" style="margin-top:40px;">Shade scales — 50 lightest → 950 darkest</div>
+    <p style="font-family:var(--font-sans); font-size:14px; color:var(--color-secondary); max-width:660px; margin-bottom:4px; line-height:1.55;">Each brand color sits at its natural step (Navy&nbsp;900, Cyan&nbsp;400, Azure&nbsp;500, Neutral&nbsp;500 — ringed). Any accent used as <em>text on a light surface</em> uses a ≥600 step: secondary text is <strong>Neutral&nbsp;600</strong>, links are <strong>Azure&nbsp;700</strong>.</p>
+
+    <div class="scale-block">
+      <div class="snm">Navy</div>
+      <div class="scale-row2">
+        <div class="scell"><div class="bar" style="background:#EEF1F7"></div><div class="st">50</div><div class="sx">#EEF1F7</div></div>
+        <div class="scell"><div class="bar" style="background:#D6DEEC"></div><div class="st">100</div><div class="sx">#D6DEEC</div></div>
+        <div class="scell"><div class="bar" style="background:#ADBAD6"></div><div class="st">200</div><div class="sx">#ADBAD6</div></div>
+        <div class="scell"><div class="bar" style="background:#7E90B7"></div><div class="st">300</div><div class="sx">#7E90B7</div></div>
+        <div class="scell"><div class="bar" style="background:#556A96"></div><div class="st">400</div><div class="sx">#556A96</div></div>
+        <div class="scell"><div class="bar" style="background:#35507F"></div><div class="st">500</div><div class="sx">#35507F</div></div>
+        <div class="scell"><div class="bar" style="background:#223A5F"></div><div class="st">600</div><div class="sx">#223A5F</div></div>
+        <div class="scell"><div class="bar" style="background:#16304C"></div><div class="st">700</div><div class="sx">#16304C</div></div>
+        <div class="scell"><div class="bar" style="background:#0F2649"></div><div class="st">800</div><div class="sx">#0F2649</div></div>
+        <div class="scell anchor"><div class="bar" style="background:#0A1F44"></div><div class="st">900</div><div class="sx">#0A1F44</div></div>
+        <div class="scell"><div class="bar" style="background:#07101E"></div><div class="st">950</div><div class="sx">#07101E</div></div>
+      </div>
+    </div>
+
+    <div class="scale-block">
+      <div class="snm">Cyan</div>
+      <div class="scale-row2">
+        <div class="scell"><div class="bar" style="background:#E6FBFF"></div><div class="st">50</div><div class="sx">#E6FBFF</div></div>
+        <div class="scell"><div class="bar" style="background:#C2F6FF"></div><div class="st">100</div><div class="sx">#C2F6FF</div></div>
+        <div class="scell"><div class="bar" style="background:#8AEDFF"></div><div class="st">200</div><div class="sx">#8AEDFF</div></div>
+        <div class="scell"><div class="bar" style="background:#4CE1FF"></div><div class="st">300</div><div class="sx">#4CE1FF</div></div>
+        <div class="scell anchor"><div class="bar" style="background:#00D4FF"></div><div class="st">400</div><div class="sx">#00D4FF</div></div>
+        <div class="scell"><div class="bar" style="background:#00AAD1"></div><div class="st">500</div><div class="sx">#00AAD1</div></div>
+        <div class="scell"><div class="bar" style="background:#0086A6"></div><div class="st">600</div><div class="sx">#0086A6</div></div>
+        <div class="scell"><div class="bar" style="background:#036A85"></div><div class="st">700</div><div class="sx">#036A85</div></div>
+        <div class="scell"><div class="bar" style="background:#0A5468"></div><div class="st">800</div><div class="sx">#0A5468</div></div>
+        <div class="scell"><div class="bar" style="background:#0C3D4C"></div><div class="st">900</div><div class="sx">#0C3D4C</div></div>
+        <div class="scell"><div class="bar" style="background:#06232C"></div><div class="st">950</div><div class="sx">#06232C</div></div>
+      </div>
+    </div>
+
+    <div class="scale-block">
+      <div class="snm">Azure</div>
+      <div class="scale-row2">
+        <div class="scell"><div class="bar" style="background:#EBF5FF"></div><div class="st">50</div><div class="sx">#EBF5FF</div></div>
+        <div class="scell"><div class="bar" style="background:#D4EBFF"></div><div class="st">100</div><div class="sx">#D4EBFF</div></div>
+        <div class="scell"><div class="bar" style="background:#A8D6FF"></div><div class="st">200</div><div class="sx">#A8D6FF</div></div>
+        <div class="scell"><div class="bar" style="background:#74BCFF"></div><div class="st">300</div><div class="sx">#74BCFF</div></div>
+        <div class="scell"><div class="bar" style="background:#38A2FF"></div><div class="st">400</div><div class="sx">#38A2FF</div></div>
+        <div class="scell anchor"><div class="bar" style="background:#0099FF"></div><div class="st">500</div><div class="sx">#0099FF</div></div>
+        <div class="scell"><div class="bar" style="background:#007ACC"></div><div class="st">600</div><div class="sx">#007ACC</div></div>
+        <div class="scell"><div class="bar" style="background:#0A5FA0"></div><div class="st">700</div><div class="sx">#0A5FA0</div></div>
+        <div class="scell"><div class="bar" style="background:#0B497A"></div><div class="st">800</div><div class="sx">#0B497A</div></div>
+        <div class="scell"><div class="bar" style="background:#0A3557"></div><div class="st">900</div><div class="sx">#0A3557</div></div>
+        <div class="scell"><div class="bar" style="background:#072033"></div><div class="st">950</div><div class="sx">#072033</div></div>
+      </div>
+    </div>
+
+    <div class="scale-block">
+      <div class="snm">Neutral</div>
+      <div class="scale-row2">
+        <div class="scell"><div class="bar" style="background:#F6F7F9"></div><div class="st">50</div><div class="sx">#F6F7F9</div></div>
+        <div class="scell"><div class="bar" style="background:#EDF0F4"></div><div class="st">100</div><div class="sx">#EDF0F4</div></div>
+        <div class="scell"><div class="bar" style="background:#E0E6ED"></div><div class="st">200</div><div class="sx">#E0E6ED</div></div>
+        <div class="scell"><div class="bar" style="background:#C4CCD8"></div><div class="st">300</div><div class="sx">#C4CCD8</div></div>
+        <div class="scell"><div class="bar" style="background:#9BA5B4"></div><div class="st">400</div><div class="sx">#9BA5B4</div></div>
+        <div class="scell anchor"><div class="bar" style="background:#808A9B"></div><div class="st">500</div><div class="sx">#808A9B</div></div>
+        <div class="scell"><div class="bar" style="background:#5D6675"></div><div class="st">600</div><div class="sx">#5D6675</div></div>
+        <div class="scell"><div class="bar" style="background:#464E5C"></div><div class="st">700</div><div class="sx">#464E5C</div></div>
+        <div class="scell"><div class="bar" style="background:#333A45"></div><div class="st">800</div><div class="sx">#333A45</div></div>
+        <div class="scell"><div class="bar" style="background:#232932"></div><div class="st">900</div><div class="sx">#232932</div></div>
+        <div class="scell"><div class="bar" style="background:#141920"></div><div class="st">950</div><div class="sx">#141920</div></div>
+      </div>
     </div>
 
     <div class="color-note">
