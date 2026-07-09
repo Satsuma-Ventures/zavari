@@ -5,6 +5,27 @@
 
 ---
 
+## ★ Priority for this pass — layout & data-visualization
+
+The content and framing are right; **the layouts are too dense.** This iteration is a **layout / information-design pass** guided by data-viz best practice (the "3 Cs": Clear, Concise, Compelling), adapted for a logged-in product UI. **Not** decoration or stylization — clarity through structure and restraint.
+
+**The fix is mostly SUBTRACTIVE.** The screens already have good data-viz (coherence constellation, funnels, KR bars, survey bars). The problem is density: too many panels, nested boxes, and prose competing at once. Do **not** add more infographic elements — remove, group, and let the existing charts breathe and lead.
+
+- **Clear (hierarchy):** every screen has **one focal point** — the most important thing, made largest / highest / boldest. Everything else is visibly secondary. Guide the eye top→down, with a consistent grid, gutters, and vertical rhythm across screens.
+- **Concise (subtract):** fewer elements per screen. Merge redundant blocks; collapse panel-in-panel nesting (group with white space and light rules, not boxes-in-boxes); cut copy to short phrases and labels; let visuals carry the narrative. Prefer **progressive disclosure** (secondary detail on hover / expand / a secondary view) over showing everything at once.
+- **Compelling (right viz, made to breathe):** where data compares, trends, or is part-of-a-whole, feature **one clean chart** rather than a table + prose + panel. Match chart to data (bar = compare, line = trend, part-to-whole for composition). Ensure charts scale accurately; keep sources on the surface (via `SourceTag`).
+
+**Concrete rules:**
+- **White space is the #1 lever** — increase padding and inter-group spacing; err toward emptier. Density is the problem being solved.
+- **One dominant primary action per screen** (the product equivalent of a CTA); demote secondary actions.
+- **Palette/type restraint** — stay within the design system (navy / cyan / azure + neutrals; serif display · sans · mono). No new colors; use color to **encode meaning**, not to decorate. Keep the AA-safe tokens.
+- **Keep the variant toggles** — they are the "interactive" dimension; just make each variant cleaner and more distinct, not busier.
+- **Mobile & contrast** — legible at small widths; maintain contrast.
+
+**Scope:** all screens; lead with the densest — **Command Layer, Coherence Map, Planning/Roadmap, Research**. Everything below (spine, framing, accessibility) is already achieved — **maintain it** while re-laying-out.
+
+---
+
 ## Order of work (regenerate data-heavy screens first)
 
 1. **Strategic Command Layer (home)** — Act 1
