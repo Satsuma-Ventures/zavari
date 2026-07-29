@@ -41,6 +41,23 @@ The clear-eyed practitioner — an instrument built by a CPO, for CPOs, that nee
 | `assets/` | Logo lockups (`zavari-logo-ltbg.svg`, `zavari-logo-dkbg.svg`), horizontal lockups (`zavari-logo-horizontal-ltbg.svg`, `zavari-logo-horizontal-dkbg.svg`), and `zavari-icon.svg` |
 | `readme.md` | Overall guidance for consuming the system |
 
+## Photo credits — the `pexels-link` class
+
+Where photography is sourced from Pexels (via the `pexels_search_photos` tool), the delivered HTML must credit it inline, adjacent to the image: "Photo by [Photographer] on Pexels", linked to the photo page.
+
+A photo credit is a metadata caption, so it follows the metadata rule — **IBM Plex Mono at `--text-caption`, in `--color-secondary`**. It should read as quiet text, not as an interactive element: no link color and no underline at rest, an arrow on hover only. Never Cyan.
+
+```css
+.pexels-link{font-family:var(--font-mono);font-size:var(--text-caption);
+  line-height:var(--text-caption-lh);color:inherit;text-decoration:none;
+  transition:color var(--dur-fast) var(--ease-standard)}
+.pexels-link::after{content:" ↗";opacity:0;
+  transition:opacity var(--dur-fast) var(--ease-standard)}
+.pexels-link:hover{color:var(--color-link)}
+.pexels-link:hover::after{opacity:1}
+.pexels-link:focus-visible{outline:2px solid var(--color-focus);outline-offset:3px}
+```
+
 ## Components
 
 `Button`, `Input`, `Card`, `Badge` (core) · `Alert` (feedback) · `StatCallout` (data) · `SourceTag` and `CoherenceFlag` (intelligence — the signature patterns expressing traceable trust and strategic coherence). Read each component's `.prompt.md` for usage and `.d.ts` for its prop API.
