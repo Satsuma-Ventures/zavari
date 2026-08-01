@@ -8,8 +8,8 @@ This file is read by Claude Code at the start of every session. It provides full
 
 ## Studio context
 
-**Playbook:** `../satsuma-ventures/studio/PLAYBOOK.md`
-*(Absolute path from the studio repo sibling. Contains the operating model, stack, principles, and phase sequence.)*
+**Playbook:** `PLAYBOOK.md`
+*(Local copy, version-locked at scaffold time. Contains the operating model, stack, principles, and phase sequence.)*
 
 ---
 
