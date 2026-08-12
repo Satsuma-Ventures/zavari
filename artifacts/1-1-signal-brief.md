@@ -1,6 +1,6 @@
 # Signal Brief: Zavari
 
-*2026-06-24 · Author: Satsuma Ventures · Skill: 1-signal v1.3*
+*2026-06-24 · Author: Satsuma · Skill: 1-signal v1.3*
 
 ---
 

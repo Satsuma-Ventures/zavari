@@ -1,6 +1,6 @@
 # zavari
 
-A Satsuma Ventures venture. Currently in Track 1 — Plant the Seed.
+A Satsuma venture. Currently in Track 1 — Plant the Seed.
 
 See `STATUS.md` for current phase and progress.
 See `CLAUDE.md` for AI agent context.

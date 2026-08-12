@@ -1,6 +1,6 @@
 # Thesis Document: Zavari (WIP)
 
-*2026-06-24 · Author: Satsuma Ventures · Skill: 2-thesis v1.6*
+*2026-06-24 · Author: Satsuma · Skill: 2-thesis v1.6*
 *Refined 2026-06-25 — two-pronged entry re-sequenced to **first-party-led** (canonical-data foundation); see The Two-Pronged Entry and Risk 2.*
 
 ---
