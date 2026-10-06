@@ -382,7 +382,7 @@ Current ventures:
 | Venture | Status |
 |---|---|
 | Cellarbook | Sprouting |
-| Corner Street Commerce | Planted |
+| Corner & Commerce | Planted |
 | Meritous | Planted |
 | Zavari | Planted |
 | Weeknight Supper Club | Planted |
